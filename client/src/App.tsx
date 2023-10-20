@@ -1,6 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
-import "./App.css";
 import { InventoryOutlined, LoginOutlined } from "@mui/icons-material";
+
+import "./App.css";
 
 const appStyles = {
   header: {
