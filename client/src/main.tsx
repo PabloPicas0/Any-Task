@@ -5,11 +5,17 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.tsx";
 import "./index.css";
 
+import CreateRoomForm from "./UI/CreateRoomForm.tsx";
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
   },
+  {
+    path: "/create",
+    element: <CreateRoomForm />
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
