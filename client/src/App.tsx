@@ -1,6 +1,8 @@
 import { Box, Button, Typography } from "@mui/material";
 import { InventoryOutlined, LoginOutlined } from "@mui/icons-material";
 
+import { useNavigate } from "react-router-dom";
+
 import "./App.css";
 
 const appStyles = {
@@ -42,6 +44,8 @@ const appStyles = {
 };
 
 function App() {
+  const navigate = useNavigate();
+
   return (
     <>
       <Box component={"header"} sx={appStyles.header}>
@@ -51,14 +55,14 @@ function App() {
       </Box>
 
       <Box component={"main"} sx={appStyles.main}>
-        <Button variant="outlined" sx={appStyles.mainButton}>
+        <Button variant="outlined" sx={appStyles.mainButton} onClick={() => navigate("/create")}>
           <InventoryOutlined fontSize="large" sx={appStyles.colors.grey100} />
           <Typography component={"p"} sx={appStyles.colors.grey100}>
             Create task room
           </Typography>
         </Button>
 
-        <Button variant="outlined" sx={appStyles.mainButton}>
+        <Button variant="outlined" sx={appStyles.mainButton} onClick={() => navigate("/join")}>
           <LoginOutlined fontSize="large" sx={appStyles.colors.grey100} />
           <Typography component={"p"} sx={appStyles.colors.grey100}>
             Join task room
