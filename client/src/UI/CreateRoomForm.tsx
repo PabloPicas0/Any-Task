@@ -2,7 +2,46 @@ import { Box, Button, Switch, TextField, Typography } from "@mui/material";
 
 import { useState } from "react";
 
-// TODO: Abstract styling
+const createRoomFormStyles = {
+  form: {
+    padding: "2rem 0rem",
+    borderRadius: "10px",
+    display: "flex",
+    flexDirection: "column",
+    gap: "40px",
+  },
+  textField: {
+    "& .MuiFormLabel-root": {
+      color: "white !important",
+    },
+    "& .MuiOutlinedInput-notchedOutline": {
+      borderColor: "white",
+    },
+    "& .MuiOutlinedInput-root": {
+      "&.Mui-focused fieldset": {
+        borderColor: "white",
+      },
+      "&:hover fieldset": {
+        borderColor: "gray",
+      },
+    },
+  },
+  textFieldInputLabelProps: {
+    sx: {
+      color: "white",
+    },
+  },
+  options: {
+    display: "flex",
+    justifyContent: "space-between",
+    gap: "70px",
+  },
+  colors: {
+    gray: {
+      color: "rgb(243 244 246)",
+    },
+  },
+};
 
 const CreateRoomForm = () => {
   const [formOptions, setFormOptions] = useState({});
@@ -10,39 +49,17 @@ const CreateRoomForm = () => {
   return (
     <>
       <header>
-        <h1 style={{ color: "rgb(243 244 246)" }}>Create room</h1>
+        <h1 style={createRoomFormStyles.colors.gray}>Create room</h1>
       </header>
 
-      <form
-        style={{
-          padding: "2rem 0rem",
-          borderRadius: "10px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "40px",
-        }}>
+      <form style={createRoomFormStyles.form as React.CSSProperties}>
         <TextField
           label="Username"
           margin="normal"
           fullWidth
           required
-          sx={{
-            "& .MuiFormLabel-root": {
-              color: "white",
-            },
-            "& .MuiOutlinedInput-notchedOutline": {
-              borderColor: "white",
-            },
-            "& .MuiOutlinedInput-root": {
-              "&.Mui-focused fieldset": {
-                borderColor: "white",
-              },
-              "&:hover fieldset": {
-                borderColor: "gray",
-              },
-            },
-          }}
-          InputLabelProps={{ sx: { color: "white" } }}
+          sx={createRoomFormStyles.textField}
+          InputLabelProps={createRoomFormStyles.textFieldInputLabelProps}
         />
 
         <Box>
@@ -51,21 +68,21 @@ const CreateRoomForm = () => {
           </Typography>
 
           <Box>
-            <Box sx={{ display: "flex", justifyContent: "space-between", gap: "70px" }}>
+            <Box sx={createRoomFormStyles.options}>
               <Switch />
               <Typography color={"white"} width={162} textAlign={"start"}>
                 Allow add new tasks
               </Typography>
             </Box>
 
-            <Box sx={{ display: "flex", justifyContent: "space-between", gap: "70px" }}>
+            <Box sx={createRoomFormStyles.options}>
               <Switch />
               <Typography color={"white"} width={162} textAlign={"start"}>
                 Allow edit tasks
               </Typography>
             </Box>
 
-            <Box sx={{ display: "flex", justifyContent: "space-between", gap: "70px" }}>
+            <Box sx={createRoomFormStyles.options}>
               <Switch />
               <Typography color={"white"} width={162} textAlign={"start"}>
                 Allow edit permissions
