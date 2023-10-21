@@ -5,8 +5,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.tsx";
 import "./index.css";
 
-import CreateRoomForm from "./UI/CreateRoomForm.tsx";
-import JoinRoomForm from "./UI/JoinRoomForm.tsx";
+import CreateRoomForm from "./Routes/CreateRoomForm.tsx";
+import JoinRoomForm from "./Routes/JoinRoomForm.tsx";
 
 const router = createBrowserRouter([
   {
