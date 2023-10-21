@@ -1,6 +1,7 @@
-import { Box, Button, Switch, TextField, Typography } from "@mui/material";
+import { Box, Button, ButtonGroup, Switch, TextField, Typography } from "@mui/material";
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const createRoomFormStyles = {
   form: {
@@ -45,6 +46,8 @@ const createRoomFormStyles = {
 
 const CreateRoomForm = () => {
   const [formOptions, setFormOptions] = useState({});
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -91,9 +94,11 @@ const CreateRoomForm = () => {
           </Box>
         </Box>
 
-        <Button variant="contained" type="submit">
-          Create room
-        </Button>
+        <ButtonGroup variant="contained" fullWidth>
+          <Button type="submit">Create room</Button>
+
+          <Button type="button" onClick={() => navigate("/")}>Go back</Button>
+        </ButtonGroup>
       </form>
     </>
   );
