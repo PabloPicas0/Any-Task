@@ -7,6 +7,7 @@ import "./index.css";
 
 import CreateRoomForm from "./Routes/CreateRoomForm.tsx";
 import JoinRoomForm from "./Routes/JoinRoomForm.tsx";
+import Room from "./Routes/Room.tsx";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
     path: "/join",
     element: <JoinRoomForm />,
   },
+  {
+    path: "/room/:id",
+    element: <Room />
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
