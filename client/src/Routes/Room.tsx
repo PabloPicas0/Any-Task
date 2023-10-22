@@ -10,15 +10,24 @@ const Room = () => {
 
   return (
     <>
-      <Box id="todos" sx={{ display: "flex", border: "1px dashed white", height: "354px" }}>
+      <Box
+        id="todos"
+        sx={{
+          display: "flex",
+          flexDirection: { xs: "column", md: "row" },
+          border: "1px dashed white",
+          height: "354px",
+          marginX: "10px"
+        }}>
         <Box
           sx={{
-            borderRight: "1px dashed white",
+            borderRight: { xs: "none", md: "1px dashed white" },
+            borderBottom: { xs: "1px dashed white", md: "none" },
             display: "flex",
-            flexDirection: "column",
+            flexDirection: { xs: "row", md: "column" },
             justifyContent: "center",
             paddingX: "20px",
-            gap: "20px",
+            gap: { xs: "40px", md: "20px" }
           }}>
           <Button sx={{ justifyContent: "start" }} startIcon={<CheckBoxOutlineBlank />}>
             Active
@@ -31,9 +40,6 @@ const Room = () => {
 
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "start",
             paddingY: "20px",
             overflowY: "auto",
             width: "100%",
