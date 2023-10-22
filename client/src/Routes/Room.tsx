@@ -1,5 +1,5 @@
-import { Add, CheckBox, CheckBoxOutlineBlank, Edit, Settings } from "@mui/icons-material";
-import { Box, Button, Fab, Tooltip, Typography } from "@mui/material";
+import { Add, CheckBox, CheckBoxOutlineBlank, Delete, Edit, Settings } from "@mui/icons-material";
+import { Box, Button, Fab, Tooltip } from "@mui/material";
 import { useParams } from "react-router-dom";
 import Task from "../UI/Task";
 
@@ -17,7 +17,7 @@ const Room = () => {
           flexDirection: { xs: "column", md: "row" },
           border: "1px dashed white",
           height: "354px",
-          marginX: "10px"
+          marginX: "10px",
         }}>
         <Box
           sx={{
@@ -27,7 +27,7 @@ const Room = () => {
             flexDirection: { xs: "row", md: "column" },
             justifyContent: "center",
             paddingX: "20px",
-            gap: { xs: "40px", md: "20px" }
+            gap: { xs: "40px", md: "20px" },
           }}>
           <Button sx={{ justifyContent: "start" }} startIcon={<CheckBoxOutlineBlank />}>
             Active
@@ -35,6 +35,10 @@ const Room = () => {
 
           <Button sx={{ justifyContent: "start" }} startIcon={<CheckBox />}>
             Completed
+          </Button>
+
+          <Button sx={{ justifyContent: "start" }} startIcon={<Delete />}>
+            Bin
           </Button>
         </Box>
 
@@ -44,11 +48,9 @@ const Room = () => {
             overflowY: "auto",
             width: "100%",
           }}>
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
+          {[...new Array(9)].map((_: undefined, idx: number) => {
+            return <Task key={idx}/>;
+          })}
         </Box>
       </Box>
 
