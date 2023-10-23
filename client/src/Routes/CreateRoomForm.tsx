@@ -6,7 +6,10 @@ import { useNavigate } from "react-router-dom";
 const createRoomFormStyles = {
   form: {
     padding: "2rem 0rem",
-    borderRadius: "10px",
+    display: "flex",
+    justifyContent: "center",
+  },
+  formWrapper: {
     display: "flex",
     flexDirection: "column",
     gap: "40px",
@@ -56,49 +59,53 @@ const CreateRoomForm = () => {
       </header>
 
       <form style={createRoomFormStyles.form as React.CSSProperties}>
-        <TextField
-          label="Username"
-          margin="normal"
-          fullWidth
-          required
-          sx={createRoomFormStyles.textField}
-          InputLabelProps={createRoomFormStyles.textFieldInputLabelProps}
-        />
-
-        <Box>
-          <Typography component={"h2"} marginBottom={"20px"} color={"white"}>
-            Room options
-          </Typography>
+        <Box sx={createRoomFormStyles.formWrapper}>
+          <TextField
+            label="Username"
+            margin="normal"
+            fullWidth
+            required
+            sx={createRoomFormStyles.textField}
+            InputLabelProps={createRoomFormStyles.textFieldInputLabelProps}
+          />
 
           <Box>
-            <Box sx={createRoomFormStyles.options}>
-              <Switch />
-              <Typography color={"white"} width={162} textAlign={"start"}>
-                Allow add new tasks
-              </Typography>
-            </Box>
+            <Typography component={"h2"} marginBottom={"20px"} color={"white"}>
+              Room options
+            </Typography>
 
-            <Box sx={createRoomFormStyles.options}>
-              <Switch />
-              <Typography color={"white"} width={162} textAlign={"start"}>
-                Allow edit tasks
-              </Typography>
-            </Box>
+            <Box>
+              <Box sx={createRoomFormStyles.options}>
+                <Switch />
+                <Typography color={"white"} width={162} textAlign={"start"}>
+                  Allow add new tasks
+                </Typography>
+              </Box>
 
-            <Box sx={createRoomFormStyles.options}>
-              <Switch />
-              <Typography color={"white"} width={162} textAlign={"start"}>
-                Allow edit permissions
-              </Typography>
+              <Box sx={createRoomFormStyles.options}>
+                <Switch />
+                <Typography color={"white"} width={162} textAlign={"start"}>
+                  Allow edit tasks
+                </Typography>
+              </Box>
+
+              <Box sx={createRoomFormStyles.options}>
+                <Switch />
+                <Typography color={"white"} width={162} textAlign={"start"}>
+                  Allow edit permissions
+                </Typography>
+              </Box>
             </Box>
           </Box>
+
+          <ButtonGroup variant="contained" fullWidth>
+            <Button type="submit">Create room</Button>
+
+            <Button type="button" onClick={() => navigate("/")}>
+              Go back
+            </Button>
+          </ButtonGroup>
         </Box>
-
-        <ButtonGroup variant="contained" fullWidth>
-          <Button type="submit">Create room</Button>
-
-          <Button type="button" onClick={() => navigate("/")}>Go back</Button>
-        </ButtonGroup>
       </form>
     </>
   );

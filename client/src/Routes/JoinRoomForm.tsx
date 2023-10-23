@@ -1,8 +1,8 @@
-import { Button, ButtonGroup, TextField } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Box, Button, ButtonGroup, TextField } from "@mui/material";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const JoinRoomFormStyles = {
-  form: {
+const joinRoomFormStyles = {
+  formWrapper: {
     display: "flex",
     flexDirection: "column",
     gap: "20px",
@@ -35,17 +35,19 @@ const JoinRoomForm = () => {
         <h1 style={{ color: "white" }}>Join Room</h1>
       </header>
 
-      <form style={JoinRoomFormStyles.form as React.CSSProperties}>
-        <TextField label="Your username" required sx={JoinRoomFormStyles.textField} />
-        <TextField label="Room ID" required sx={JoinRoomFormStyles.textField} />
+      <form style={{display: "flex", justifyContent: "center"}}>
+        <Box sx={joinRoomFormStyles.formWrapper as React.CSSProperties}>
+          <TextField label="Your username" required sx={joinRoomFormStyles.textField} />
+          <TextField label="Room ID" required sx={joinRoomFormStyles.textField} />
 
-        <ButtonGroup variant="contained" fullWidth>
-          <Button type="submit">Join to room</Button>
+          <ButtonGroup variant="contained" fullWidth>
+            <Button type="submit">Join to room</Button>
 
-          <Button type="button" onClick={() => navigate("/")}>
-            Go back
-          </Button>
-        </ButtonGroup>
+            <Button type="button" onClick={() => navigate("/")}>
+              Go back
+            </Button>
+          </ButtonGroup>
+        </Box>
       </form>
     </>
   );
