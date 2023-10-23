@@ -1,5 +1,5 @@
 import { Box, Button, ButtonGroup, TextField } from "@mui/material";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const joinRoomFormStyles = {
   formWrapper: {
@@ -35,7 +35,7 @@ const JoinRoomForm = () => {
         <h1 style={{ color: "white" }}>Join Room</h1>
       </header>
 
-      <form style={{display: "flex", justifyContent: "center"}}>
+      <form style={{ display: "flex", justifyContent: "center" }}>
         <Box sx={joinRoomFormStyles.formWrapper as React.CSSProperties}>
           <TextField label="Your username" required sx={joinRoomFormStyles.textField} />
           <TextField label="Room ID" required sx={joinRoomFormStyles.textField} />
