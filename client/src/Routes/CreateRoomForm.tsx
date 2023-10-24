@@ -35,6 +35,11 @@ const createRoomFormStyles = {
       color: "white",
     },
   },
+  textFieldInputProps: {
+    sx: {
+      color: "white",
+    },
+  },
   options: {
     display: "flex",
     justifyContent: "space-between",
@@ -85,6 +90,7 @@ const CreateRoomForm = () => {
             }
             sx={createRoomFormStyles.textField}
             InputLabelProps={createRoomFormStyles.textFieldInputLabelProps}
+            InputProps={createRoomFormStyles.textFieldInputProps}
           />
 
           <Box>
