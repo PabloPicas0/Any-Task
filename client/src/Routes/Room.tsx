@@ -1,7 +1,12 @@
-import { Add, CheckBox, CheckBoxOutlineBlank, Delete, Edit, Settings } from "@mui/icons-material";
-import { Box, Button, Fab, Tooltip } from "@mui/material";
+import { CheckBox, CheckBoxOutlineBlank, Delete } from "@mui/icons-material";
+import { Box, Button } from "@mui/material";
+
 import { useParams } from "react-router-dom";
+
 import Task from "../UI/Task";
+import AddButton from "../UI/AddButton";
+import EditButton from "../UI/EditButton";
+import SettingsButton from "../UI/SettingsButton";
 
 const roomStyles = {};
 
@@ -15,14 +20,14 @@ const Room = () => {
         sx={{
           display: "flex",
           flexDirection: { xs: "column", md: "row" },
-          border: "1px dashed white",
+          border: "1px solid white",
           height: "354px",
           marginX: "10px",
         }}>
         <Box
           sx={{
-            borderRight: { xs: "none", md: "1px dashed white" },
-            borderBottom: { xs: "1px dashed white", md: "none" },
+            borderRight: { xs: "none", md: "1px solid white" },
+            borderBottom: { xs: "1px solid white", md: "none" },
             display: "flex",
             flexDirection: { xs: "row", md: "column" },
             justifyContent: "center",
@@ -49,28 +54,14 @@ const Room = () => {
             width: "100%",
           }}>
           {[...new Array(9)].map((_: undefined, idx: number) => {
-            return <Task key={idx}/>;
+            return <Task key={idx} />;
           })}
         </Box>
       </Box>
 
-      <Tooltip title="Add task" placement="left">
-        <Fab aria-label="Add todo" sx={{ position: "fixed", right: 20, bottom: 172 }}>
-          <Add />
-        </Fab>
-      </Tooltip>
-
-      <Tooltip title="Edit task" placement="left">
-        <Fab aria-label="Add todo" sx={{ position: "fixed", right: 20, bottom: 96 }}>
-          <Edit />
-        </Fab>
-      </Tooltip>
-
-      <Tooltip title="Room permissions" placement="left">
-        <Fab aria-label="Add todo" sx={{ position: "fixed", right: 20, bottom: 20 }}>
-          <Settings />
-        </Fab>
-      </Tooltip>
+      <AddButton />
+      <EditButton />
+      <SettingsButton />
     </>
   );
 };
