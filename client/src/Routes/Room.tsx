@@ -8,51 +8,69 @@ import AddButton from "../UI/AddButton";
 import EditButton from "../UI/EditButton";
 import SettingsButton from "../UI/SettingsButton";
 
-const roomStyles = {};
+const roomStyles = {
+  container: {
+    display: "flex",
+    flexDirection: {
+      xs: "column",
+      md: "row",
+    },
+    border: "1px solid white",
+    height: "354px",
+    marginX: "10px",
+  },
+  buttonsWrapper: {
+    borderRight: {
+      xs: "none",
+      md: "1px solid white",
+    },
+    borderBottom: {
+      xs: "1px solid white",
+      md: "none",
+    },
+    display: "flex",
+    flexDirection: {
+      xs: "row",
+      md: "column",
+    },
+    justifyContent: "center",
+    paddingX: "20px",
+    gap: {
+      xs: "40px",
+      md: "20px",
+    },
+  },
+  taskWrapper: {
+    paddingY: "20px",
+    overflowY: "auto",
+    width: "100%",
+  },
+  flexCenter: {
+    justifyContent: "start",
+  },
+};
 
 const Room = () => {
   const { id } = useParams();
 
   return (
     <>
-      <Box
-        id="todos"
-        sx={{
-          display: "flex",
-          flexDirection: { xs: "column", md: "row" },
-          border: "1px solid white",
-          height: "354px",
-          marginX: "10px",
-        }}>
-        <Box
-          sx={{
-            borderRight: { xs: "none", md: "1px solid white" },
-            borderBottom: { xs: "1px solid white", md: "none" },
-            display: "flex",
-            flexDirection: { xs: "row", md: "column" },
-            justifyContent: "center",
-            paddingX: "20px",
-            gap: { xs: "40px", md: "20px" },
-          }}>
-          <Button sx={{ justifyContent: "start" }} startIcon={<CheckBoxOutlineBlank />}>
+      <Box id="todos" sx={roomStyles.container}>
+        <Box sx={roomStyles.buttonsWrapper}>
+          <Button sx={roomStyles.flexCenter} startIcon={<CheckBoxOutlineBlank />}>
             Active
           </Button>
 
-          <Button sx={{ justifyContent: "start" }} startIcon={<CheckBox />}>
+          <Button sx={roomStyles.flexCenter} startIcon={<CheckBox />}>
             Completed
           </Button>
 
-          <Button sx={{ justifyContent: "start" }} startIcon={<Delete />}>
+          <Button sx={roomStyles.flexCenter} startIcon={<Delete />}>
             Bin
           </Button>
         </Box>
 
-        <Box
-          sx={{
-            paddingY: "20px",
-            overflowY: "auto",
-            width: "100%",
-          }}>
+        <Box sx={roomStyles.taskWrapper}>
           {[...new Array(9)].map((_: undefined, idx: number) => {
             return <Task key={idx} />;
           })}
