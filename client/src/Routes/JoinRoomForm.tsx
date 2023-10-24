@@ -26,6 +26,11 @@ const joinRoomFormStyles = {
       minWidth: "290px",
     },
   },
+  textFieldInputProps: {
+    sx: {
+      color: "white",
+    },
+  },
 };
 
 type FormOptions = {
@@ -58,6 +63,7 @@ const JoinRoomForm = () => {
                 return { ...prevOptions, username: e.target.value };
               })
             }
+            InputProps={joinRoomFormStyles.textFieldInputProps}
           />
 
           <TextField
@@ -70,6 +76,7 @@ const JoinRoomForm = () => {
                 return { ...prevOptions, id: e.target.value };
               })
             }
+            InputProps={joinRoomFormStyles.textFieldInputProps}
           />
 
           <ButtonGroup variant="contained" fullWidth>
