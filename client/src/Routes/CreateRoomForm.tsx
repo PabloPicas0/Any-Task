@@ -47,8 +47,20 @@ const createRoomFormStyles = {
   },
 };
 
+type FormOptions = {
+  username: string;
+  addNewTasks: boolean;
+  editTasks: boolean;
+  editPermissions: boolean;
+};
+
 const CreateRoomForm = () => {
-  const [formOptions, setFormOptions] = useState({});
+  const [formOptions, setFormOptions] = useState<FormOptions>({
+    username: "",
+    addNewTasks: false,
+    editTasks: false,
+    editPermissions: false,
+  });
 
   const navigate = useNavigate();
 
@@ -65,6 +77,12 @@ const CreateRoomForm = () => {
             margin="normal"
             fullWidth
             required
+            value={formOptions.username}
+            onChange={(e) =>
+              setFormOptions((prevForm) => {
+                return { ...prevForm, username: e.target.value };
+              })
+            }
             sx={createRoomFormStyles.textField}
             InputLabelProps={createRoomFormStyles.textFieldInputLabelProps}
           />
@@ -76,21 +94,42 @@ const CreateRoomForm = () => {
 
             <Box>
               <Box sx={createRoomFormStyles.options}>
-                <Switch />
+                <Switch
+                  checked={formOptions.addNewTasks}
+                  onChange={(e) => {
+                    setFormOptions((prevForm) => {
+                      return { ...prevForm, addNewTasks: e.target.checked };
+                    });
+                  }}
+                />
                 <Typography color={"white"} width={162} textAlign={"start"}>
                   Allow add new tasks
                 </Typography>
               </Box>
 
               <Box sx={createRoomFormStyles.options}>
-                <Switch />
+                <Switch
+                  checked={formOptions.editTasks}
+                  onChange={(e) => {
+                    setFormOptions((prevForm) => {
+                      return { ...prevForm, editTasks: e.target.checked };
+                    });
+                  }}
+                />
                 <Typography color={"white"} width={162} textAlign={"start"}>
                   Allow edit tasks
                 </Typography>
               </Box>
 
               <Box sx={createRoomFormStyles.options}>
-                <Switch />
+                <Switch
+                  checked={formOptions.editPermissions}
+                  onChange={(e) => {
+                    setFormOptions((prevForm) => {
+                      return { ...prevForm, editPermissions: e.target.checked };
+                    });
+                  }}
+                />
                 <Typography color={"white"} width={162} textAlign={"start"}>
                   Allow edit permissions
                 </Typography>
