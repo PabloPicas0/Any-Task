@@ -1,5 +1,14 @@
 import { Add } from "@mui/icons-material";
-import { Tooltip, Fab, Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button } from "@mui/material";
+import {
+  Tooltip,
+  Fab,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  TextField,
+  DialogActions,
+  Button,
+} from "@mui/material";
 
 import { useState } from "react";
 
@@ -18,13 +27,13 @@ const AddButton = () => {
       </Tooltip>
 
       <Dialog onClose={() => setOpen(false)} open={open}>
-        <DialogTitle>Add task</DialogTitle>
+        <DialogTitle textAlign={"center"}>Add task</DialogTitle>
 
         <DialogContent>
           <TextField label="TODO" margin="dense" />
         </DialogContent>
 
-        <DialogActions>
+        <DialogActions sx={{ justifyContent: "center" }}>
           <Button variant="contained">Add to list</Button>
         </DialogActions>
       </Dialog>
