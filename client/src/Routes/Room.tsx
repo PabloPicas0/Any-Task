@@ -33,8 +33,8 @@ const roomStyles = {
       xs: "row",
       md: "column",
     },
-    justifyContent: "center",
-    paddingX: { xs: "0px", sm: "20px" },
+    justifyContent: "space-evenly",
+    paddingX: { xs: "0px", sm: "60px" },
     gap: {
       xs: "20px",
       md: "20px",
@@ -62,7 +62,7 @@ const Room = () => {
           </Button>
 
           <Button sx={roomStyles.flexCenter} startIcon={<CheckBox />}>
-           Done
+            Done
           </Button>
 
           <Button sx={roomStyles.flexCenter} startIcon={<Delete />}>
