@@ -1,5 +1,5 @@
-import { CheckBox, CheckBoxOutlineBlank, Delete } from "@mui/icons-material";
-import { Box, Button } from "@mui/material";
+import { Assignment, Delete, Done, Settings } from "@mui/icons-material";
+import { AppBar, Box, Button, Divider, IconButton, Toolbar, Typography } from "@mui/material";
 
 import { useParams } from "react-router-dom";
 
@@ -7,6 +7,7 @@ import Task from "../UI/Task";
 import AddButton from "../UI/AddButton";
 import EditButton from "../UI/EditButton";
 import SettingsButton from "../UI/SettingsButton";
+import { useEffect } from "react";
 
 const roomStyles = {
   container: {
@@ -16,10 +17,13 @@ const roomStyles = {
       md: "row",
     },
     border: "1px solid white",
-    height: "354px",
-    marginX: "10px",
+    height: "calc(100vh - 64px)",
   },
   buttonsWrapper: {
+    width: {
+      xs: "100%",
+      md: "240px",
+    },
     borderRight: {
       xs: "none",
       md: "1px solid white",
@@ -33,19 +37,23 @@ const roomStyles = {
       xs: "row",
       md: "column",
     },
-    justifyContent: "space-evenly",
-    paddingX: { xs: "0px", sm: "60px" },
+    justifyContent: {
+      xs: "space-evenly",
+      md: "start",
+    },
     gap: {
       xs: "20px",
       md: "20px",
     },
+    paddingTop: 3
   },
   taskWrapper: {
     paddingY: "20px",
     overflowY: "auto",
     width: "100%",
   },
-  flexCenter: {
+  buttons: {
+    paddingX: "16px",
     justifyContent: "start",
   },
 };
@@ -53,26 +61,51 @@ const roomStyles = {
 const Room = () => {
   const { id } = useParams();
 
+  useEffect(() => {
+    const body = document.querySelector("body");
+    const root = document.getElementById("root");
+
+    const bodyStyles = body?.style;
+    const rootStyles = root?.style;
+
+    if (bodyStyles && rootStyles) {
+      bodyStyles.display = "block";
+      rootStyles.maxWidth = "none";
+    }
+  }, []);
+
   return (
     <>
+      <AppBar position="static">
+        <Toolbar sx={{ justifyContent: "space-between" }}>
+          <Typography>Any Task</Typography>
+
+          <IconButton size="large">
+            <Settings />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+
       <Box id="todos" sx={roomStyles.container}>
         <Box sx={roomStyles.buttonsWrapper}>
-          <Button sx={roomStyles.flexCenter} startIcon={<CheckBoxOutlineBlank />}>
+          <Button size="large" sx={roomStyles.buttons} startIcon={<Assignment />}>
             Active
           </Button>
 
-          <Button sx={roomStyles.flexCenter} startIcon={<CheckBox />}>
-            Done
+          <Button size="large" sx={roomStyles.buttons} startIcon={<Done />}>
+            Completed
           </Button>
 
-          <Button sx={roomStyles.flexCenter} startIcon={<Delete />}>
+          <Divider sx={{ borderColor: "white" }} />
+
+          <Button size="large" sx={roomStyles.buttons} startIcon={<Delete />}>
             Bin
           </Button>
         </Box>
 
         <Box sx={roomStyles.taskWrapper}>
           {[...new Array(9)].map((_: undefined, idx: number) => {
-            return <Task key={idx} />;
+            return <Task key={idx} description={`${idx}`} />;
           })}
         </Box>
       </Box>
