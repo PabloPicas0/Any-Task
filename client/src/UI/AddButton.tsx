@@ -1,4 +1,4 @@
-import { Add } from "@mui/icons-material";
+import { Add, PostAdd } from "@mui/icons-material";
 import {
   Tooltip,
   Fab,
@@ -7,7 +7,7 @@ import {
   DialogContent,
   TextField,
   DialogActions,
-  Button,
+  IconButton,
 } from "@mui/material";
 
 import { useState } from "react";
@@ -30,11 +30,19 @@ const AddButton = () => {
         <DialogTitle textAlign={"center"}>Add task</DialogTitle>
 
         <DialogContent>
-          <TextField label="TODO" margin="dense" />
+          <TextField label="Task description" margin="dense" />
         </DialogContent>
 
         <DialogActions sx={{ justifyContent: "center" }}>
-          <Button variant="contained">Add to list</Button>
+          <Tooltip title="Add to task list">
+            <IconButton
+              sx={(theme) => ({
+                backgroundColor: theme.palette.grey[50],
+                boxShadow: theme.shadows[2],
+              })}>
+              <PostAdd fontSize="large" />
+            </IconButton>
+          </Tooltip>
         </DialogActions>
       </Dialog>
     </>
