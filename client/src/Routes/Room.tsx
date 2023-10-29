@@ -16,21 +16,13 @@ const roomStyles = {
       xs: "column",
       md: "row",
     },
-    border: "1px solid white",
     height: "calc(100vh - 64px)",
   },
   buttonsWrapper: {
+    backgroundColor: "#424242",
     width: {
       xs: "100%",
       md: "240px",
-    },
-    borderRight: {
-      xs: "none",
-      md: "1px solid white",
-    },
-    borderBottom: {
-      xs: "1px solid white",
-      md: "none",
     },
     display: "flex",
     flexDirection: {
@@ -41,13 +33,11 @@ const roomStyles = {
       xs: "space-evenly",
       md: "start",
     },
-    gap: {
-      xs: "20px",
-      md: "20px",
-    },
-    paddingTop: 3
+    gap: "10px",
+    paddingTop: 3,
   },
   taskWrapper: {
+    backgroundColor: "#212121",
     paddingY: "20px",
     overflowY: "auto",
     width: "100%",
@@ -77,8 +67,10 @@ const Room = () => {
   return (
     <>
       <AppBar position="static">
-        <Toolbar sx={{ justifyContent: "space-between" }}>
-          <Typography>Any Task</Typography>
+        <Toolbar sx={{ justifyContent: "space-between", backgroundColor: "#424242" }}>
+          <Typography variant="h6" fontWeight={"bold"}>
+            Any Task
+          </Typography>
 
           <IconButton size="large">
             <Settings />
