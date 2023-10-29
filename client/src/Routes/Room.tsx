@@ -26,7 +26,10 @@ const roomStyles = {
       xs: "column",
       md: "row",
     },
-    height: "calc(100vh - 64px)",
+    height: {
+      xs: "calc(100vh - 56px)",
+      md: "calc(100vh - 64px)",
+    },
   },
   buttonsWrapper: {
     backgroundColor: "#424242",
@@ -51,6 +54,7 @@ const roomStyles = {
     paddingY: "20px",
     overflowY: "auto",
     width: "100%",
+    height: "100%",
   },
   buttons: {
     color: "#fafafa",
