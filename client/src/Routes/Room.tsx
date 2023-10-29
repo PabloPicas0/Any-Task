@@ -1,5 +1,15 @@
-import { Assignment, Delete, Done, Settings } from "@mui/icons-material";
-import { AppBar, Box, Button, Divider, IconButton, Toolbar, Typography } from "@mui/material";
+import { Assignment, Delete, Done, Logout } from "@mui/icons-material";
+import {
+  AppBar,
+  Box,
+  Button,
+  Divider,
+  IconButton,
+  Toolbar,
+  Tooltip,
+  Typography,
+  colors,
+} from "@mui/material";
 
 import { useParams } from "react-router-dom";
 
@@ -43,8 +53,17 @@ const roomStyles = {
     width: "100%",
   },
   buttons: {
+    color: "#fafafa",
     paddingX: "16px",
     justifyContent: "start",
+    "&:hover": {
+      backgroundColor: "rgba(255,255,255,0.1)",
+    },
+  },
+  colors: {
+    grey50: {
+      color: "#fafafa",
+    },
   },
 };
 
@@ -72,25 +91,37 @@ const Room = () => {
             Any Task
           </Typography>
 
-          <IconButton size="large">
-            <Settings />
-          </IconButton>
+          <Tooltip title="Leave room">
+            <IconButton
+              size="large"
+              sx={{
+                ...roomStyles.colors.grey50,
+                "&:hover": {
+                  backgroundColor: "rgba(255,255,255,0.1)",
+                },
+              }}>
+              <Logout />
+            </IconButton>
+          </Tooltip>
         </Toolbar>
       </AppBar>
 
       <Box id="todos" sx={roomStyles.container}>
         <Box sx={roomStyles.buttonsWrapper}>
-          <Button size="large" sx={roomStyles.buttons} startIcon={<Assignment />}>
+          <Button
+            size="large"
+            sx={roomStyles.buttons}
+            startIcon={<Assignment sx={roomStyles.colors.grey50} />}>
             Active
           </Button>
 
-          <Button size="large" sx={roomStyles.buttons} startIcon={<Done />}>
+          <Button size="large" sx={roomStyles.buttons} startIcon={<Done sx={roomStyles.colors.grey50} />}>
             Completed
           </Button>
 
           <Divider sx={{ borderColor: "white" }} />
 
-          <Button size="large" sx={roomStyles.buttons} startIcon={<Delete />}>
+          <Button size="large" sx={roomStyles.buttons} startIcon={<Delete sx={roomStyles.colors.grey50} />}>
             Bin
           </Button>
         </Box>
