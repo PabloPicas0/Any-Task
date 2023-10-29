@@ -8,7 +8,6 @@ import {
   Toolbar,
   Tooltip,
   Typography,
-  colors,
 } from "@mui/material";
 
 import { useParams } from "react-router-dom";
@@ -97,6 +96,7 @@ const Room = () => {
 
           <Tooltip title="Leave room">
             <IconButton
+              href="/"
               size="large"
               sx={{
                 ...roomStyles.colors.grey50,
