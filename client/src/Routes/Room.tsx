@@ -67,7 +67,7 @@ const Room = () => {
   return (
     <>
       <AppBar position="static">
-        <Toolbar sx={{ justifyContent: "space-between", backgroundColor: "#424242" }}>
+        <Toolbar sx={{ justifyContent: "space-between", backgroundColor: "#616161" }}>
           <Typography variant="h6" fontWeight={"bold"}>
             Any Task
           </Typography>
