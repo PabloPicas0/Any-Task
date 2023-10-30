@@ -1,22 +1,13 @@
 import { Assignment, Delete, Done, Logout } from "@mui/icons-material";
-import {
-  AppBar,
-  Box,
-  Button,
-  Divider,
-  IconButton,
-  Toolbar,
-  Tooltip,
-  Typography,
-} from "@mui/material";
+import { AppBar, Box, Button, Divider, IconButton, Toolbar, Tooltip, Typography } from "@mui/material";
 
 import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 import Task from "../UI/Task";
 import AddButton from "../UI/AddButton";
 import EditButton from "../UI/EditButton";
 import SettingsButton from "../UI/SettingsButton";
-import { useEffect } from "react";
 
 const roomStyles = {
   container: {
@@ -29,6 +20,10 @@ const roomStyles = {
       xs: "calc(100vh - 56px)",
       md: "calc(100vh - 64px)",
     },
+  },
+  toolbar: {
+    justifyContent: "space-between",
+    backgroundColor: "#616161",
   },
   buttonsWrapper: {
     backgroundColor: "#424242",
@@ -70,7 +65,31 @@ const roomStyles = {
   },
 };
 
+type TaskProps = {
+  description: string;
+  isActive: boolean;
+  isBin: boolean;
+};
+
 const Room = () => {
+  const [tasks, setTasks] = useState<TaskProps[]>([]);
+
+  const active = [...new Array(10)].map((_: undefined, idx: number) => {
+    return {
+      description: `${idx}`,
+      isActive: true,
+      isBin: false,
+    };
+  });
+
+  const completed = [...new Array(9)].map((_: undefined, idx: number) => {
+    return {
+      description: `${idx}`,
+      isActive: false,
+      isBin: false,
+    };
+  });
+
   const { id } = useParams();
 
   useEffect(() => {
@@ -89,7 +108,7 @@ const Room = () => {
   return (
     <>
       <AppBar position="static">
-        <Toolbar sx={{ justifyContent: "space-between", backgroundColor: "#616161" }}>
+        <Toolbar sx={roomStyles.toolbar}>
           <Typography variant="h6" fontWeight={"bold"}>
             Any Task
           </Typography>
@@ -115,11 +134,16 @@ const Room = () => {
           <Button
             size="large"
             sx={roomStyles.buttons}
-            startIcon={<Assignment sx={roomStyles.colors.grey50} />}>
+            startIcon={<Assignment sx={roomStyles.colors.grey50} />}
+            onClick={() => setTasks(active)}>
             Active
           </Button>
 
-          <Button size="large" sx={roomStyles.buttons} startIcon={<Done sx={roomStyles.colors.grey50} />}>
+          <Button
+            size="large"
+            sx={roomStyles.buttons}
+            startIcon={<Done sx={roomStyles.colors.grey50} />}
+            onClick={() => setTasks(completed)}>
             Completed
           </Button>
 
@@ -131,8 +155,8 @@ const Room = () => {
         </Box>
 
         <Box sx={roomStyles.taskWrapper}>
-          {[...new Array(9)].map((_: undefined, idx: number) => {
-            return <Task key={idx} description={`${idx}`} />;
+          {tasks.map((task, idx) => {
+            return <Task description={task.description} key={idx} />;
           })}
         </Box>
       </Box>
