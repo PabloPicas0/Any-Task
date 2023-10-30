@@ -1,14 +1,6 @@
 import { Comment, Delete } from "@mui/icons-material";
-import {
-  Box,
-  Checkbox,
-  IconButton,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-} from "@mui/material";
+import { Checkbox, IconButton, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import { blue, grey, red } from "@mui/material/colors";
 
 type TaskProps = {
   description?: string;
@@ -24,20 +16,35 @@ const Task = (props: TaskProps) => {
       secondaryAction={
         <>
           <IconButton edge="end" aria-label="comments">
-            <Comment />
+            <Comment sx={{ color: blue[700] }} />
           </IconButton>
 
           <IconButton sx={{ display: isEditable ? "inline-flex" : "none" }} disabled={!isEditable}>
-            <Delete />
+            <Delete sx={{ color: red[300] }} />
           </IconButton>
         </>
-      }>
+      }
+      sx={(theme) => ({
+        "& .MuiTouchRipple-child": {
+          backgroundColor: `${theme.palette.primary.main}`,
+        },
+      })}>
       <ListItemButton sx={{ padding: "1.2rem 3rem" }}>
         <ListItemIcon>
-          <Checkbox />
+          <Checkbox
+            sx={{
+              color: grey[200],
+              "&.Mui-checked": {
+                color: grey[200],
+              },
+              "&:hover": {
+                backgroundColor: "rgba(245, 245, 245, 0.05)",
+              },
+            }}
+          />
         </ListItemIcon>
 
-        <ListItemText primary={description} />
+        <ListItemText primary={description} sx={{ color: "whitesmoke" }} />
       </ListItemButton>
     </ListItem>
   );
