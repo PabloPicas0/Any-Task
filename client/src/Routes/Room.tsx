@@ -73,8 +73,9 @@ type TaskProps = {
 
 const Room = () => {
   const [tasks, setTasks] = useState<TaskProps[]>([]);
+  const [isEditable, setIsEditable] = useState<boolean>(false);
 
-  const active = [...new Array(10)].map((_: undefined, idx: number) => {
+  const active = [...new Array(15)].map((_: undefined, idx: number) => {
     return {
       description: `${idx}`,
       isActive: true,
@@ -156,13 +157,15 @@ const Room = () => {
 
         <Box sx={roomStyles.taskWrapper}>
           {tasks.map((task, idx) => {
-            return <Task description={task.description} key={idx} />;
+            const { description } = task;
+
+            return <Task description={description} key={idx} isEditable={isEditable} />;
           })}
         </Box>
       </Box>
 
       <AddButton />
-      <EditButton />
+      <EditButton setIsEditable={setIsEditable} />
       <SettingsButton />
     </>
   );
