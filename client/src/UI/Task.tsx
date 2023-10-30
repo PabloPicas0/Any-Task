@@ -1,5 +1,14 @@
-import { Delete } from "@mui/icons-material";
-import { Box, IconButton, Typography } from "@mui/material";
+import { Comment, Delete } from "@mui/icons-material";
+import {
+  Box,
+  Checkbox,
+  IconButton,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Typography,
+} from "@mui/material";
 
 type TaskProps = {
   description?: string;
@@ -11,15 +20,26 @@ const Task = (props: TaskProps) => {
   const { description, isEditable } = props;
 
   return (
-    <Box sx={{ padding: "1.2rem 3rem" }}>
-      <Typography textAlign={"start"} color={"HighlightText"}>
-        {description}
-      </Typography>
+    <ListItem
+      secondaryAction={
+        <>
+          <IconButton edge="end" aria-label="comments">
+            <Comment />
+          </IconButton>
 
-      <IconButton sx={{ display: isEditable ? "inline-flex" : "none" }} disabled={!isEditable}>
-        <Delete />
-      </IconButton>
-    </Box>
+          <IconButton sx={{ display: isEditable ? "inline-flex" : "none" }} disabled={!isEditable}>
+            <Delete />
+          </IconButton>
+        </>
+      }>
+      <ListItemButton sx={{ padding: "1.2rem 3rem" }}>
+        <ListItemIcon>
+          <Checkbox />
+        </ListItemIcon>
+
+        <ListItemText primary={description} />
+      </ListItemButton>
+    </ListItem>
   );
 };
 
