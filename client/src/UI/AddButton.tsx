@@ -20,7 +20,7 @@ const AddButton = () => {
       <Tooltip title="Add task" placement="left">
         <Fab
           aria-label="Add todo"
-          sx={{ position: "fixed", right: 20, bottom: 172 }}
+          sx={{ position: "fixed", right: 30, bottom: 96 }}
           onClick={() => setOpen(true)}>
           <Add />
         </Fab>

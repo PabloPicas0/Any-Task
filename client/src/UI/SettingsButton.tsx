@@ -17,7 +17,7 @@ import { useState } from "react";
 const settingsButtonStyles = {
   settingsBtn: {
     position: "fixed",
-    right: 20,
+    right: 30,
     bottom: 20,
   },
   dialogPaperProps: {
