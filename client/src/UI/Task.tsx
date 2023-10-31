@@ -5,11 +5,10 @@ import { blue, grey, red } from "@mui/material/colors";
 type TaskProps = {
   description?: string;
   key: number;
-  isEditable: boolean;
 };
 
 const Task = (props: TaskProps) => {
-  const { description, isEditable } = props;
+  const { description } = props;
 
   return (
     <ListItem
@@ -19,7 +18,7 @@ const Task = (props: TaskProps) => {
             <Comment sx={{ color: blue[700] }} />
           </IconButton>
 
-          <IconButton sx={{ display: isEditable ? "inline-flex" : "none" }} disabled={!isEditable}>
+          <IconButton>
             <Delete sx={{ color: red[300] }} />
           </IconButton>
         </>
@@ -29,7 +28,7 @@ const Task = (props: TaskProps) => {
           backgroundColor: `${theme.palette.primary.main}`,
         },
       })}>
-      <ListItemButton sx={{ padding: "1.2rem 3rem" }}>
+      <ListItemButton sx={{ padding: "1.2rem 0rem" }}>
         <ListItemIcon>
           <Checkbox
             sx={{
