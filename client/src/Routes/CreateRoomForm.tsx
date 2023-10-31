@@ -1,7 +1,8 @@
 import { Box, Button, ButtonGroup, Switch, TextField, Typography } from "@mui/material";
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
+import { url } from "../Utils/api";
 
 const createRoomFormStyles = {
   form: {
@@ -59,6 +60,10 @@ type FormOptions = {
   editPermissions: boolean;
 };
 
+type ServerResponse = {
+  roomId: string;
+};
+
 const CreateRoomForm = () => {
   const [formOptions, setFormOptions] = useState<FormOptions>({
     username: "",
@@ -66,8 +71,36 @@ const CreateRoomForm = () => {
     editTasks: false,
     editPermissions: false,
   });
+  const [serverError, setServerErrror] = useState(false);
 
   const navigate = useNavigate();
+
+  const handleNewRoom = async () => {
+    try {
+      const { username, addNewTasks, editPermissions, editTasks } = formOptions;
+
+      const req = await fetch(`${url}/api/create`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: `username=${username}&allowNewTasks=${addNewTasks}&editTasks=${editTasks}&editPermissions=${editPermissions}`,
+      });
+
+      if (!req.ok) {
+        setServerErrror(true);
+        return;
+      }
+
+      const res: ServerResponse = await req.json();
+
+      const { roomId } = res;
+
+      navigate(`/room/${roomId}`);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
@@ -75,7 +108,7 @@ const CreateRoomForm = () => {
         <h1 style={createRoomFormStyles.colors.gray}>Create room</h1>
       </header>
 
-      <form style={createRoomFormStyles.form as React.CSSProperties}>
+      <Form style={createRoomFormStyles.form as React.CSSProperties} onSubmit={handleNewRoom}>
         <Box sx={createRoomFormStyles.formWrapper}>
           <TextField
             label="Username"
@@ -151,7 +184,7 @@ const CreateRoomForm = () => {
             </Button>
           </ButtonGroup>
         </Box>
-      </form>
+      </Form>
     </>
   );
 };
