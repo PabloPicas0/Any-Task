@@ -1,4 +1,4 @@
-import { Box, Button, ButtonGroup, Switch, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, ButtonGroup, Snackbar, Switch, TextField, Typography } from "@mui/material";
 
 import { useState } from "react";
 import { Form, useNavigate } from "react-router-dom";
@@ -71,7 +71,7 @@ const CreateRoomForm = () => {
     editTasks: false,
     editPermissions: false,
   });
-  const [serverError, setServerErrror] = useState(false);
+  const [serverError, setServerErrror] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -99,11 +99,23 @@ const CreateRoomForm = () => {
       navigate(`/room/${roomId}`);
     } catch (error) {
       console.error(error);
+
+      setServerErrror(true);
     }
   };
 
   return (
     <>
+      <Snackbar
+        open={serverError}
+        autoHideDuration={6000}
+        onClose={() => setServerErrror(false)}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}>
+        <Alert severity="error" onClose={() => setServerErrror(false)} sx={{ width: "100%" }}>
+          Server error. Please try again later.
+        </Alert>
+      </Snackbar>
+
       <header>
         <h1 style={createRoomFormStyles.colors.gray}>Create room</h1>
       </header>
