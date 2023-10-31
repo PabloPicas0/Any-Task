@@ -4,6 +4,8 @@ import express, { Request, Response, Application } from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 
+import { router as createRoute } from "./routes/create";
+
 dotenv.config();
 const app: Application = express();
 
@@ -23,7 +25,9 @@ app.get("/", (req: Request, res: Response) => {
   res.send("<h1 style='text-align: center'>Server is running !</h1>");
 });
 
-const port: String | undefined = process.env.PORT;
+app.use("/api/create", createRoute);
+
+const port: string | undefined = process.env.PORT;
 
 app.listen(port, () => {
   console.log(`Your server is listening to localhost:${port}`);
