@@ -5,6 +5,12 @@ import { Form, useNavigate } from "react-router-dom";
 import { url } from "../Utils/api";
 
 const createRoomFormStyles = {
+  container: {
+    minHeight: "100vh",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+  },
   form: {
     padding: "2rem 0rem",
     display: "flex",
@@ -105,7 +111,7 @@ const CreateRoomForm = () => {
   };
 
   return (
-    <>
+    <Box sx={createRoomFormStyles.container}>
       <Snackbar
         open={serverError}
         autoHideDuration={6000}
@@ -197,7 +203,7 @@ const CreateRoomForm = () => {
           </ButtonGroup>
         </Box>
       </Form>
-    </>
+    </Box>
   );
 };
 

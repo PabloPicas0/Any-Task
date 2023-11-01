@@ -4,6 +4,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const joinRoomFormStyles = {
+  container: {
+    minHeight: "100vh",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+  },
   formWrapper: {
     display: "flex",
     flexDirection: "column",
@@ -46,7 +52,7 @@ const JoinRoomForm = () => {
   const navigate = useNavigate();
 
   return (
-    <>
+    <Box sx={joinRoomFormStyles.container}>
       <header style={{ marginBottom: "50px" }}>
         <h1 style={{ color: "white" }}>Join Room</h1>
       </header>
@@ -88,7 +94,7 @@ const JoinRoomForm = () => {
           </ButtonGroup>
         </Box>
       </form>
-    </>
+    </Box>
   );
 };
 

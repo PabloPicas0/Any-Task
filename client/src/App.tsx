@@ -6,6 +6,12 @@ import { useNavigate } from "react-router-dom";
 import "./App.css";
 
 const appStyles = {
+  container: {
+    minHeight: "100vh",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+  },
   header: {
     marginBottom: "7rem",
   },
@@ -47,29 +53,29 @@ function App() {
   const navigate = useNavigate();
 
   return (
-    <>
-      <Box component={"header"} sx={appStyles.header}>
-        <Typography component={"h1"} sx={{ ...appStyles.headerText, ...appStyles.colors.grey100 }}>
-          Create or join to the room
-        </Typography>
-      </Box>
-
-      <Box component={"main"} sx={appStyles.main}>
-        <Button variant="outlined" sx={appStyles.mainButton} onClick={() => navigate("/create")}>
-          <InventoryOutlined fontSize="large" sx={appStyles.colors.grey100} />
-          <Typography component={"p"} sx={appStyles.colors.grey100}>
-            Create task room
+      <Box sx={appStyles.container}>
+        <Box component={"header"} sx={appStyles.header}>
+          <Typography component={"h1"} sx={{ ...appStyles.headerText, ...appStyles.colors.grey100 }}>
+            Create or join to the room
           </Typography>
-        </Button>
+        </Box>
 
-        <Button variant="outlined" sx={appStyles.mainButton} onClick={() => navigate("/join")}>
-          <LoginOutlined fontSize="large" sx={appStyles.colors.grey100} />
-          <Typography component={"p"} sx={appStyles.colors.grey100}>
-            Join task room
-          </Typography>
-        </Button>
+        <Box component={"main"} sx={appStyles.main}>
+          <Button variant="outlined" sx={appStyles.mainButton} onClick={() => navigate("/create")}>
+            <InventoryOutlined fontSize="large" sx={appStyles.colors.grey100} />
+            <Typography component={"p"} sx={appStyles.colors.grey100}>
+              Create task room
+            </Typography>
+          </Button>
+
+          <Button variant="outlined" sx={appStyles.mainButton} onClick={() => navigate("/join")}>
+            <LoginOutlined fontSize="large" sx={appStyles.colors.grey100} />
+            <Typography component={"p"} sx={appStyles.colors.grey100}>
+              Join task room
+            </Typography>
+          </Button>
+        </Box>
       </Box>
-    </>
   );
 }
 
