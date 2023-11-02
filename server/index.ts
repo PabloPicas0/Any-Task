@@ -5,6 +5,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 
 import { router as createRoute } from "./routes/create";
+import { router as joinRoute } from "./routes/join";
 
 dotenv.config();
 const app: Application = express();
@@ -26,6 +27,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.use("/api/create", createRoute);
+app.use("/api/join", joinRoute);
 
 const port: string | undefined = process.env.PORT;
 
