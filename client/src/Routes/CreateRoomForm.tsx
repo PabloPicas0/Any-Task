@@ -1,8 +1,10 @@
-import { Alert, Box, Button, ButtonGroup, Snackbar, Switch, TextField, Typography } from "@mui/material";
+import { Box, Button, ButtonGroup, Switch, TextField, Typography } from "@mui/material";
 
 import { useState } from "react";
 import { Form, useNavigate } from "react-router-dom";
+
 import { url } from "../Utils/api";
+import Error from "../UI/Error";
 
 const createRoomFormStyles = {
   container: {
@@ -112,15 +114,11 @@ const CreateRoomForm = () => {
 
   return (
     <Box sx={createRoomFormStyles.container}>
-      <Snackbar
-        open={serverError}
-        autoHideDuration={6000}
-        onClose={() => setServerErrror(false)}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}>
-        <Alert severity="error" onClose={() => setServerErrror(false)} sx={{ width: "100%" }}>
-          Server error. Please try again later.
-        </Alert>
-      </Snackbar>
+      <Error
+        isError={serverError}
+        setError={setServerErrror}
+        message="Server error. Please try again later."
+      />
 
       <header>
         <h1 style={createRoomFormStyles.colors.gray}>Create room</h1>
