@@ -1,13 +1,20 @@
 import { Box, Button, ButtonGroup, TextField } from "@mui/material";
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
+
+import { url } from "../Utils/api";
+import Error from "../UI/Error";
 
 const joinRoomFormStyles = {
   container: {
     minHeight: "100vh",
     display: "flex",
     flexDirection: "column",
+    justifyContent: "center",
+  },
+  form: {
+    display: "flex",
     justifyContent: "center",
   },
   formWrapper: {
@@ -49,15 +56,45 @@ const JoinRoomForm = () => {
     username: "",
     id: "",
   });
+  const [error, setError] = useState<boolean>(false);
+
   const navigate = useNavigate();
+
+  const handleSubmit = async () => {
+    const { id } = formOptions;
+
+    try {
+      const req = await fetch(`${url}/api/join`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: `id=${id}`,
+      });
+
+      if (req.ok) navigate(`/room/${id}`);
+
+      setError(true);
+    } catch (error) {
+      console.error(error);
+
+      setError(true);
+    }
+  };
 
   return (
     <Box sx={joinRoomFormStyles.container}>
+      <Error
+        isError={error}
+        setError={setError}
+        message="Invalid ID or connection error. Please try again."
+      />
+
       <header style={{ marginBottom: "50px" }}>
         <h1 style={{ color: "white" }}>Join Room</h1>
       </header>
 
-      <form style={{ display: "flex", justifyContent: "center" }}>
+      <Form style={joinRoomFormStyles.form} onSubmit={handleSubmit}>
         <Box sx={joinRoomFormStyles.formWrapper as React.CSSProperties}>
           <TextField
             label="Your username"
@@ -93,7 +130,7 @@ const JoinRoomForm = () => {
             </Button>
           </ButtonGroup>
         </Box>
-      </form>
+      </Form>
     </Box>
   );
 };
