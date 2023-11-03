@@ -1,12 +1,11 @@
 import { Assignment, Delete, Done, Logout } from "@mui/icons-material";
-import { AppBar, Box, Button, Divider, IconButton, Toolbar, Tooltip, Typography } from "@mui/material";
+import { AppBar, Box, Button, Divider, IconButton, List, Toolbar, Tooltip, Typography } from "@mui/material";
 
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import Task from "../UI/Task";
 import AddButton from "../UI/AddButton";
-import EditButton from "../UI/EditButton";
 import SettingsButton from "../UI/SettingsButton";
 
 const roomStyles = {
@@ -71,9 +70,14 @@ type TaskProps = {
   isBin: boolean;
 };
 
+/*
+ * TODO:
+ *  - Make app more responsive on moblie
+ *
+ */
+
 const Room = () => {
   const [tasks, setTasks] = useState<TaskProps[]>([]);
-  const [isEditable, setIsEditable] = useState<boolean>(false);
 
   const active = [...new Array(15)].map((_: undefined, idx: number) => {
     return {
@@ -83,7 +87,7 @@ const Room = () => {
     };
   });
 
-  const completed = [...new Array(9)].map((_: undefined, idx: number) => {
+  const completed = [...new Array(4)].map((_: undefined, idx: number) => {
     return {
       description: `${idx}`,
       isActive: false,
@@ -92,19 +96,6 @@ const Room = () => {
   });
 
   const { id } = useParams();
-
-  useEffect(() => {
-    const body = document.querySelector("body");
-    const root = document.getElementById("root");
-
-    const bodyStyles = body?.style;
-    const rootStyles = root?.style;
-
-    if (bodyStyles && rootStyles) {
-      bodyStyles.display = "block";
-      rootStyles.maxWidth = "none";
-    }
-  }, []);
 
   return (
     <>
@@ -155,17 +146,17 @@ const Room = () => {
           </Button>
         </Box>
 
-        <Box sx={roomStyles.taskWrapper}>
+        <List sx={roomStyles.taskWrapper}>
           {tasks.map((task, idx) => {
             const { description } = task;
+            const author = idx % 2 === 0 ? "Me" : "You";
 
-            return <Task description={description} key={idx} isEditable={isEditable} />;
+            return <Task description={description} key={idx} comments={[{ author: author, text: "test" }]} />;
           })}
-        </Box>
+        </List>
       </Box>
 
       <AddButton />
-      <EditButton setIsEditable={setIsEditable} />
       <SettingsButton />
     </>
   );
