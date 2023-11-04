@@ -72,9 +72,11 @@ const JoinRoomForm = () => {
         body: `id=${id}&clientUsername=${username}`,
       });
 
-      if (req.ok) navigate(`/room/${id}?username=${username}`);
-
-      setError(true);
+      if (req.ok) {
+        navigate(`/room/${id}?username=${username}`);
+      } else {
+        setError(true);
+      }
     } catch (error) {
       console.error(error);
 
