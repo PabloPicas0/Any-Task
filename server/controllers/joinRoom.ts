@@ -33,3 +33,28 @@ export const joinRoom = async (req: Request, res: Response) => {
     return res.sendStatus(406);
   }
 };
+
+export const roomDetails = async (req: Request, res: Response) => {
+  const { id, clientUsername } = req.body;
+
+  try {
+    const isValidId = mongoose.Types.ObjectId.isValid(id);
+
+    if (!isValidId) return res.sendStatus(400);
+
+    const room = await roomModel.findById(id);
+
+    if (!room) return res.sendStatus(404);
+
+    const { roomUsers } = room;
+
+    const clientExists = roomUsers.some((user) => user.username === clientUsername);
+
+    if (!clientExists) return res.sendStatus(401);
+
+    return res.status(200).json({ room });
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(500);
+  }
+};
