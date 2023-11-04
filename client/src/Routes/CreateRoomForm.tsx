@@ -104,7 +104,7 @@ const CreateRoomForm = () => {
 
       const { roomId } = res;
 
-      navigate(`/room/${roomId}`);
+      navigate(`/room/${roomId}?username=${username}`);
     } catch (error) {
       console.error(error);
 
