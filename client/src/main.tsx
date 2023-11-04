@@ -10,6 +10,8 @@ import JoinRoomForm from "./Routes/JoinRoomForm.tsx";
 import Room from "./Routes/Room.tsx";
 import ErrorPage from "./Routes/ErrorPage.tsx";
 
+import { getRoomDetails } from "./Utils/getRoomDetails.ts";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -30,6 +32,18 @@ const router = createBrowserRouter([
     path: "/room/:id",
     element: <Room />,
     errorElement: <ErrorPage />,
+    loader: async ({ params, request }) => {
+      const url = new URL(request.url)
+      const username = url.searchParams.get("username");
+
+      const roomDetails = await getRoomDetails(params.id, username)
+
+      if (!roomDetails) throw new Error("Cannot find room.")
+
+      console.log(roomDetails)
+
+      return null;
+    },
   },
 ]);
 
