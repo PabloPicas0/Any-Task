@@ -5,11 +5,19 @@ const ErrorPage = () => {
   console.error(error);
 
   return (
-    <div id="error-page" style={{ color: "#fafafa" }}>
+    <div
+      id="error-page"
+      style={{
+        color: "#fafafa",
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+      }}>
       <h1>Oops!</h1>
       <p>Sorry, an unexpected error has occurred.</p>
       <p>
-        <i>{error.statusText}</i>
+        <i>{error.statusText || error.message}</i>
       </p>
     </div>
   );
