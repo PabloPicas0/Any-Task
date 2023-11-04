@@ -61,7 +61,7 @@ const JoinRoomForm = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    const { id } = formOptions;
+    const { id, username } = formOptions;
 
     try {
       const req = await fetch(`${url}/api/join`, {
@@ -69,10 +69,10 @@ const JoinRoomForm = () => {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: `id=${id}`,
+        body: `id=${id}&clientUsername=${username}`,
       });
 
-      if (req.ok) navigate(`/room/${id}`);
+      if (req.ok) navigate(`/room/${id}?username=${username}`);
 
       setError(true);
     } catch (error) {
