@@ -152,7 +152,7 @@ const Room = () => {
         </List>
       </Box>
 
-      <AddButton />
+      <AddButton roomId={roomDetails._id}/>
       <SettingsButton />
     </>
   );
