@@ -1,7 +1,8 @@
 import express, { Router } from "express";
 
-import createRoom from "../controllers/createRoom";
+import { createRoom, createTask } from "../controllers/createRoom";
 
 export const router: Router = express.Router();
 
-router.post("/", createRoom)
+router.post("/", createRoom);
+router.post("/task", createTask);
