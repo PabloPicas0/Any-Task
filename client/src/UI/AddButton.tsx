@@ -17,7 +17,11 @@ import { url } from "../Utils/api";
 
 import Error from "./Error";
 
-const AddButton = () => {
+type Props = {
+  roomId: string;
+};
+
+const AddButton = (props: Props) => {
   const [open, setOpen] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const [taskDescription, setTaskDescription] = useState<string>("");
@@ -30,7 +34,7 @@ const AddButton = () => {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: `taskDescription=${taskDescription}&isActive=true&isBin=false`,
+        body: `roomId=${props.roomId}&taskDescription=${taskDescription}&isActive=true&isBin=false`,
       });
 
       if (!req.ok) {
