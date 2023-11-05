@@ -33,16 +33,14 @@ const router = createBrowserRouter([
     element: <Room />,
     errorElement: <ErrorPage />,
     loader: async ({ params, request }) => {
-      const url = new URL(request.url)
+      const url = new URL(request.url);
       const username = url.searchParams.get("username");
 
-      const roomDetails = await getRoomDetails(params.id, username)
+      const roomDetails = await getRoomDetails(params.id, username);
 
-      if (!roomDetails) throw new Error("Cannot find room.")
+      if (!roomDetails) throw new Error("Cannot find room.");
 
-      console.log(roomDetails)
-
-      return null;
+      return { roomDetails };
     },
   },
 ]);
