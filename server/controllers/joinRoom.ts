@@ -48,11 +48,13 @@ export const roomDetails = async (req: Request, res: Response) => {
 
     const { roomUsers } = room;
 
-    const clientExists = roomUsers.some((user) => user.username === clientUsername);
+    const clientExists = roomUsers.find((user) => user.username === clientUsername);
 
     if (!clientExists) return res.sendStatus(401);
 
-    return res.status(200).json({ room });
+    room.roomUsers = [clientExists];
+
+    return res.status(200).json(room);
   } catch (error) {
     console.log(error);
     return res.sendStatus(500);
