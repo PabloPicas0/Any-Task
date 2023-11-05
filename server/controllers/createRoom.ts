@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 
 import roomModel from "../models/Task";
 
-const createRoom = async (req: Request, res: Response) => {
+export const createRoom = async (req: Request, res: Response) => {
   const { username, allowNewTasks, editTasks, editPermissions } = req.body;
 
   try {
@@ -27,8 +27,29 @@ const createRoom = async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.log(error);
-    return res.status(500)
+    return res.status(500);
   }
 };
 
-export default createRoom;
+export const createTask = async (req: Request, res: Response) => {
+  const { roomId, taskDescription, isActive, isBin } = req.body;
+
+  try {
+    const room = await roomModel.findById(roomId);
+
+    const todo = {
+      description: taskDescription,
+      isActive: isActive,
+      isBin: isBin,
+      comments: []
+    };
+
+    room?.tasks.active.push(todo)
+
+    await room?.save()
+
+    return res.sendStatus(200)
+  } catch (error) {
+    console.error(error);
+  }
+};
