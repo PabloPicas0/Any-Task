@@ -1,12 +1,14 @@
 import { Assignment, Delete, Done, Logout } from "@mui/icons-material";
 import { AppBar, Box, Button, Divider, IconButton, List, Toolbar, Tooltip, Typography } from "@mui/material";
 
-import { useParams } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { useState } from "react";
 
 import Task from "../UI/Task";
 import AddButton from "../UI/AddButton";
 import SettingsButton from "../UI/SettingsButton";
+
+import { ServerResponse } from "../Utils/getRoomDetails";
 
 const roomStyles = {
   container: {
@@ -70,6 +72,10 @@ type TaskProps = {
   isBin: boolean;
 };
 
+type LoaderData = {
+  roomDetails: ServerResponse;
+};
+
 /*
  * TODO:
  *  - Make app more responsive on moblie
@@ -79,23 +85,9 @@ type TaskProps = {
 const Room = () => {
   const [tasks, setTasks] = useState<TaskProps[]>([]);
 
-  const active = [...new Array(15)].map((_: undefined, idx: number) => {
-    return {
-      description: `${idx}`,
-      isActive: true,
-      isBin: false,
-    };
-  });
+  const { roomDetails } = useLoaderData() as LoaderData;
 
-  const completed = [...new Array(4)].map((_: undefined, idx: number) => {
-    return {
-      description: `${idx}`,
-      isActive: false,
-      isBin: false,
-    };
-  });
-
-  const { id } = useParams();
+  console.log(roomDetails);
 
   return (
     <>
@@ -127,7 +119,7 @@ const Room = () => {
             size="large"
             sx={roomStyles.buttons}
             startIcon={<Assignment sx={roomStyles.colors.grey50} />}
-            onClick={() => setTasks(active)}>
+            onClick={() => setTasks(roomDetails.tasks.active)}>
             Active
           </Button>
 
@@ -135,13 +127,17 @@ const Room = () => {
             size="large"
             sx={roomStyles.buttons}
             startIcon={<Done sx={roomStyles.colors.grey50} />}
-            onClick={() => setTasks(completed)}>
+            onClick={() => setTasks(roomDetails.tasks.completed)}>
             Completed
           </Button>
 
           <Divider sx={{ borderColor: "white" }} />
 
-          <Button size="large" sx={roomStyles.buttons} startIcon={<Delete sx={roomStyles.colors.grey50} />}>
+          <Button
+            size="large"
+            sx={roomStyles.buttons}
+            startIcon={<Delete sx={roomStyles.colors.grey50} />}
+            onClick={() => setTasks(roomDetails.tasks.bin)}>
             Bin
           </Button>
         </Box>
