@@ -1,6 +1,6 @@
 import { url } from "./api";
 
-type ServerResponse = {
+export type ServerResponse = {
   _id: string;
   __v: number;
   roomOptions: {
