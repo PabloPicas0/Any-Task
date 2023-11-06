@@ -73,7 +73,7 @@ const JoinRoomForm = () => {
       });
 
       if (req.ok) {
-        navigate(`/room/${id}?username=${username}`);
+        navigate({ pathname: `/room/${id}`, search: `?username=${username}` });
       } else {
         setError(true);
       }
