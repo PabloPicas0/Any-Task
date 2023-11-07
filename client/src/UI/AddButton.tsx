@@ -11,43 +11,34 @@ import {
 } from "@mui/material";
 
 import { useState } from "react";
-import { Form } from "react-router-dom";
-
-import { url } from "../Utils/api";
+import { Form, useSubmit } from "react-router-dom";
 
 import Error from "./Error";
 
-type Props = {
-  roomId: string;
-};
+/*
+ * TODO
+ *  - Update error handing
+ */
 
-const AddButton = (props: Props) => {
+const AddButton = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const [taskDescription, setTaskDescription] = useState<string>("");
 
+  const submit = useSubmit();
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const req = await fetch(`${url}/api/create/task`, {
+
+    submit(
+      {
+        todo: taskDescription,
+      },
+      {
         method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: `roomId=${props.roomId}&taskDescription=${taskDescription}&isActive=true&isBin=false`,
-      });
-
-      if (!req.ok) {
-        setError(true);
-      } else {
-        setOpen(false);
+        encType: "application/x-www-form-urlencoded",
       }
-
-      console.log(req);
-    } catch (error) {
-      console.error(error);
-      setError(true);
-    }
+    );
   };
 
   return (
