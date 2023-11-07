@@ -11,6 +11,7 @@ import Room from "./Routes/Room.tsx";
 import ErrorPage from "./Routes/ErrorPage.tsx";
 
 import { getRoomDetails } from "./Utils/getRoomDetails.ts";
+import updateTodo from "./Utils/updateTodo.ts";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,14 @@ const router = createBrowserRouter([
       if (!roomDetails) throw new Error("Cannot find room.");
 
       return { roomDetails };
+    },
+    action: async ({ request, params }) => {
+      const data = await request.formData();
+      const todo = data.get("todo");
+
+      if (!params.id || !todo) throw new Error("Invalid request");
+
+      return await updateTodo(params.id, todo);
     },
   },
 ]);
