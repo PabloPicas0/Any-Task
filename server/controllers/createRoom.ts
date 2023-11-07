@@ -39,8 +39,8 @@ export const createTask = async (req: Request, res: Response) => {
 
     const todo = {
       description: taskDescription,
-      isActive: Boolean(isActive),
-      isBin: Boolean(isBin),
+      isActive: isActive,
+      isBin: isBin,
       comments: [],
     };
 
