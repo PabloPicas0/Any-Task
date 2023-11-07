@@ -12,20 +12,41 @@ import {
 import { blue, grey, red } from "@mui/material/colors";
 
 import { useState } from "react";
+import { useParams, useSubmit } from "react-router-dom";
 
 type TaskProps = {
   description?: string;
-  key: number;
-  comments?: {
-    author: string;
-    text: string;
-  }[];
+  key: string;
+  todoId: string;
+  comments?:
+    | {
+        author: string;
+        text: string;
+      }[]
+    | [];
 };
 
 const Task = (props: TaskProps) => {
-  const { description, comments } = props;
+  const { description, comments, todoId } = props;
 
   const [openComments, setOpenComments] = useState<boolean>(false);
+
+  const { id } = useParams();
+  const submit = useSubmit();
+
+  const handleDelete = () => {
+    submit(
+      {
+        intent: "delete",
+        id: id || "",
+        taskId: todoId,
+      },
+      {
+        method: "DELETE",
+        encType: "application/x-www-form-urlencoded",
+      }
+    );
+  };
 
   return (
     <>
@@ -40,7 +61,7 @@ const Task = (props: TaskProps) => {
               <Comment sx={{ color: blue[700] }} />
             </IconButton>
 
-            <IconButton sx={{ marginRight: "20px" }}>
+            <IconButton sx={{ marginRight: "20px" }} onClick={handleDelete}>
               <Delete sx={{ color: red[300] }} />
             </IconButton>
           </>
