@@ -66,12 +66,6 @@ const roomStyles = {
   },
 };
 
-type TaskProps = {
-  description: string;
-  isActive: boolean;
-  isBin: boolean;
-};
-
 type LoaderData = {
   roomDetails: ServerResponse;
 };
@@ -91,7 +85,7 @@ const Room = () => {
   const completed = roomDetails.tasks.completed;
   const bin = roomDetails.tasks.bin;
 
-  console.log(roomDetails);
+  // console.log(roomDetails);
 
   return (
     <>
@@ -148,28 +142,49 @@ const Room = () => {
 
         <List sx={{ ...roomStyles.taskWrapper, display: tasks === "active" ? "block" : "none" }}>
           {active.map((task, idx) => {
-            const { description } = task;
+            const { description, _id } = task;
             const author = idx % 2 === 0 ? "Me" : "You";
 
-            return <Task description={description} key={idx} comments={[{ author: author, text: "test" }]} />;
+            return (
+              <Task
+                description={description}
+                key={_id}
+                comments={[{ author: author, text: "test" }]}
+                todoId={_id}
+              />
+            );
           })}
         </List>
 
         <List sx={{ ...roomStyles.taskWrapper, display: tasks === "completed" ? "block" : "none" }}>
           {completed.map((task, idx) => {
-            const { description } = task;
+            const { description, _id } = task;
             const author = idx % 2 === 0 ? "Me" : "You";
 
-            return <Task description={description} key={idx} comments={[{ author: author, text: "test" }]} />;
+            return (
+              <Task
+                description={description}
+                key={_id}
+                comments={[{ author: author, text: "test" }]}
+                todoId={_id}
+              />
+            );
           })}
         </List>
 
         <List sx={{ ...roomStyles.taskWrapper, display: tasks === "bin" ? "block" : "none" }}>
           {bin.map((task, idx) => {
-            const { description } = task;
+            const { description, _id } = task;
             const author = idx % 2 === 0 ? "Me" : "You";
 
-            return <Task description={description} key={idx} comments={[{ author: author, text: "test" }]} />;
+            return (
+              <Task
+                description={description}
+                key={_id}
+                comments={[{ author: author, text: "test" }]}
+                todoId={_id}
+              />
+            );
           })}
         </List>
       </Box>
