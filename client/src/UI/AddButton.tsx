@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 
 import { useState } from "react";
-import { Form, useSubmit } from "react-router-dom";
+import { Form } from "react-router-dom";
 
 import Error from "./Error";
 
@@ -24,22 +24,6 @@ const AddButton = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const [taskDescription, setTaskDescription] = useState<string>("");
-
-  const submit = useSubmit();
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    submit(
-      {
-        todo: taskDescription,
-      },
-      {
-        method: "POST",
-        encType: "application/x-www-form-urlencoded",
-      }
-    );
-  };
 
   return (
     <>
@@ -55,7 +39,7 @@ const AddButton = () => {
       <Dialog onClose={() => setOpen(false)} open={open}>
         <Error isError={error} setError={setError} message="Failed to add task. Please try agian." />
 
-        <Form onSubmit={handleSubmit}>
+        <Form method="POST">
           <DialogTitle textAlign={"center"}>Add task</DialogTitle>
 
           <DialogContent>
@@ -64,6 +48,7 @@ const AddButton = () => {
               margin="dense"
               required
               autoFocus
+              name="todo"
               value={taskDescription}
               onChange={(e) => setTaskDescription(e.target.value)}
             />
@@ -76,7 +61,9 @@ const AddButton = () => {
                   backgroundColor: theme.palette.grey[50],
                   boxShadow: theme.shadows[2],
                 })}
-                type="submit">
+                type="submit"
+                name="intent"
+                value="add">
                 <PostAdd fontSize="large" />
               </IconButton>
             </Tooltip>
