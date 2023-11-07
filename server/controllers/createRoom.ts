@@ -39,16 +39,16 @@ export const createTask = async (req: Request, res: Response) => {
 
     const todo = {
       description: taskDescription,
-      isActive: isActive,
-      isBin: isBin,
-      comments: []
+      isActive: Boolean(isActive),
+      isBin: Boolean(isBin),
+      comments: [],
     };
 
-    room?.tasks.active.push(todo)
+    room?.tasks.active.push(todo);
 
-    await room?.save()
+    await room?.save();
 
-    return res.sendStatus(200)
+    return res.status(200).json({ todo });
   } catch (error) {
     console.error(error);
   }
