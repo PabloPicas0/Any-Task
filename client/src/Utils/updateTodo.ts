@@ -10,9 +10,7 @@ const updateTodo = async (roomId: string, newTodo: FormDataEntryValue) => {
       body: `roomId=${roomId}&taskDescription=${newTodo}&isActive=true&isBin=false`,
     });
 
-    const { todo } = await req.json();
-
-    return { todo };
+    if (!req.ok) throw new Error("Something went wrong");
   } catch (error) {
     console.error(error);
   }
