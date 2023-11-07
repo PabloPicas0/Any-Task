@@ -48,8 +48,17 @@ export const createTask = async (req: Request, res: Response) => {
 
     await room?.save();
 
-    return res.status(200).json({ todo });
+    return res.sendStatus(200);
   } catch (error) {
     console.error(error);
+    return res.sendStatus(500);
+  }
+};
+
+export const deleteTask = async (req: Request, res: Response) => {
+  try {
+    console.log(req.body);
+  } catch (error) {
+    console.log(error);
   }
 };
