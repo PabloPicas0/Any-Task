@@ -83,9 +83,13 @@ type LoaderData = {
  */
 
 const Room = () => {
-  const [tasks, setTasks] = useState<TaskProps[]>([]);
+  const [tasks, setTasks] = useState<string>("active");
 
   const { roomDetails } = useLoaderData() as LoaderData;
+
+  const active = roomDetails.tasks.active;
+  const completed = roomDetails.tasks.completed;
+  const bin = roomDetails.tasks.bin;
 
   console.log(roomDetails);
 
@@ -119,7 +123,7 @@ const Room = () => {
             size="large"
             sx={roomStyles.buttons}
             startIcon={<Assignment sx={roomStyles.colors.grey50} />}
-            onClick={() => setTasks(roomDetails.tasks.active)}>
+            onClick={() => setTasks("active")}>
             Active
           </Button>
 
@@ -127,7 +131,7 @@ const Room = () => {
             size="large"
             sx={roomStyles.buttons}
             startIcon={<Done sx={roomStyles.colors.grey50} />}
-            onClick={() => setTasks(roomDetails.tasks.completed)}>
+            onClick={() => setTasks("completed")}>
             Completed
           </Button>
 
@@ -137,13 +141,31 @@ const Room = () => {
             size="large"
             sx={roomStyles.buttons}
             startIcon={<Delete sx={roomStyles.colors.grey50} />}
-            onClick={() => setTasks(roomDetails.tasks.bin)}>
+            onClick={() => setTasks("bin")}>
             Bin
           </Button>
         </Box>
 
-        <List sx={roomStyles.taskWrapper}>
-          {tasks.map((task, idx) => {
+        <List sx={{ ...roomStyles.taskWrapper, display: tasks === "active" ? "block" : "none" }}>
+          {active.map((task, idx) => {
+            const { description } = task;
+            const author = idx % 2 === 0 ? "Me" : "You";
+
+            return <Task description={description} key={idx} comments={[{ author: author, text: "test" }]} />;
+          })}
+        </List>
+
+        <List sx={{ ...roomStyles.taskWrapper, display: tasks === "completed" ? "block" : "none" }}>
+          {completed.map((task, idx) => {
+            const { description } = task;
+            const author = idx % 2 === 0 ? "Me" : "You";
+
+            return <Task description={description} key={idx} comments={[{ author: author, text: "test" }]} />;
+          })}
+        </List>
+
+        <List sx={{ ...roomStyles.taskWrapper, display: tasks === "bin" ? "block" : "none" }}>
+          {bin.map((task, idx) => {
             const { description } = task;
             const author = idx % 2 === 0 ? "Me" : "You";
 
@@ -152,7 +174,7 @@ const Room = () => {
         </List>
       </Box>
 
-      <AddButton roomId={roomDetails._id}/>
+      <AddButton />
       <SettingsButton />
     </>
   );
