@@ -12,7 +12,7 @@ import {
 import { blue, grey, red } from "@mui/material/colors";
 
 import { useState } from "react";
-import { useParams, useSubmit } from "react-router-dom";
+import { useSubmit } from "react-router-dom";
 
 type TaskProps = {
   description?: string;
@@ -31,14 +31,12 @@ const Task = (props: TaskProps) => {
 
   const [openComments, setOpenComments] = useState<boolean>(false);
 
-  const { id } = useParams();
   const submit = useSubmit();
 
   const handleDelete = () => {
     submit(
       {
         intent: "delete",
-        id: id || "",
         taskId: todoId,
       },
       {
