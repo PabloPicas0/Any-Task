@@ -1,6 +1,53 @@
 import mongoose from "mongoose";
 
-const roomSchema = new mongoose.Schema({
+interface IRoom {
+  roomUsers: {
+    username: string;
+    isAdmin: boolean;
+  }[];
+  roomOptions: {
+    newTasks: boolean;
+    editTask: boolean;
+    editPermissions: boolean;
+  };
+  tasks: {
+    active:
+      | {
+          description: string;
+          isActive: boolean;
+          isBin: boolean;
+          _id: mongoose.Types.ObjectId;
+          comments: {
+            author: string;
+            text: string;
+          }[];
+        }[];
+    completed:
+      | {
+          description: string;
+          isActive: boolean;
+          isBin: boolean;
+          _id: mongoose.Types.ObjectId;
+          comments: {
+            author: string;
+            text: string;
+          }[];
+        }[];
+    bin:
+      | {
+          description: string;
+          isActive: boolean;
+          isBin: boolean;
+          _id: mongoose.Types.ObjectId;
+          comments: {
+            author: string;
+            text: string;
+          }[];
+        }[];
+  };
+}
+
+const roomSchema = new mongoose.Schema<IRoom>({
   roomUsers: {
     type: [
       {
