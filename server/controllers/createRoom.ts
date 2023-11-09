@@ -77,18 +77,22 @@ export const deleteTask = async (req: Request, res: Response) => {
 
     if (!room) return res.sendStatus(404);
 
-    const { active, bin } = room.tasks;
+    const { active } = room.tasks;
 
     for (let i = 0; i < active.length; ++i) {
       const { _id } = active[i];
 
       if (_id.toString() === taskId) {
         console.log(`Task Found ${_id.toString()}`);
-        const deletedTodo = room.tasks.active.splice(i, 1);
-        room.tasks.bin = [...bin, ...deletedTodo];
+        const deletedTodo = room.tasks.active.splice(i, 1)[0];
+
+        deletedTodo.isActive = false;
+        deletedTodo.isBin = true;
+
+        room.tasks.bin.push(deletedTodo);
       }
     }
-    
+
     await room.save();
 
     return res.sendStatus(200);
