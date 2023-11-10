@@ -1,5 +1,16 @@
 import { Assignment, Delete, Done, Logout } from "@mui/icons-material";
-import { AppBar, Box, Button, Divider, IconButton, List, Toolbar, Tooltip, Typography } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Button,
+  Divider,
+  IconButton,
+  List,
+  ListItemText,
+  Toolbar,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 
 import { useLoaderData } from "react-router-dom";
 import { useState } from "react";
@@ -173,6 +184,11 @@ const Room = () => {
         </List>
 
         <List sx={{ ...roomStyles.taskWrapper, display: tasks === "bin" ? "block" : "none" }}>
+          <ListItemText
+            primary="Tasks will be automatically deleted after 30 days"
+            sx={roomStyles.colors.grey50}
+          />
+
           {bin.map((task, idx) => {
             const { description, _id } = task;
             const author = idx % 2 === 0 ? "Me" : "You";
