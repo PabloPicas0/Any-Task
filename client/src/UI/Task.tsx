@@ -46,6 +46,19 @@ const Task = (props: TaskProps) => {
     );
   };
 
+  const handleComplete = () => {
+    submit(
+      {
+        intent: "complete",
+        taskId: todoId,
+      },
+      {
+        method: "DELETE",
+        encType: "application/x-www-form-urlencoded",
+      }
+    );
+  };
+
   return (
     <>
       <ListItem
@@ -72,6 +85,7 @@ const Task = (props: TaskProps) => {
         <ListItemButton sx={{ padding: "1.2rem 0rem" }}>
           <ListItemIcon>
             <Checkbox
+              onClick={handleComplete}
               sx={{
                 color: grey[200],
                 "&.Mui-checked": {
