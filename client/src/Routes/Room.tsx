@@ -153,13 +153,14 @@ const Room = () => {
 
         <List sx={{ ...roomStyles.taskWrapper, display: tasks === "active" ? "block" : "none" }}>
           {active.map((task, idx) => {
-            const { description, _id } = task;
+            const { description, _id, isActive } = task;
             const author = idx % 2 === 0 ? "Me" : "You";
 
             return (
               <Task
                 description={description}
                 key={_id}
+                isActive={isActive}
                 comments={[{ author: author, text: "test" }]}
                 todoId={_id}
               />
@@ -169,13 +170,14 @@ const Room = () => {
 
         <List sx={{ ...roomStyles.taskWrapper, display: tasks === "completed" ? "block" : "none" }}>
           {completed.map((task, idx) => {
-            const { description, _id } = task;
+            const { description, _id, isActive } = task;
             const author = idx % 2 === 0 ? "Me" : "You";
 
             return (
               <Task
                 description={description}
                 key={_id}
+                isActive={isActive}
                 comments={[{ author: author, text: "test" }]}
                 todoId={_id}
               />
@@ -185,18 +187,19 @@ const Room = () => {
 
         <List sx={{ ...roomStyles.taskWrapper, display: tasks === "bin" ? "block" : "none" }}>
           <ListItemText
-            primary="Tasks will be automatically deleted after 30 days"
+            primary="Bin will be automatically cleared after 30 days"
             sx={roomStyles.colors.grey50}
           />
 
           {bin.map((task, idx) => {
-            const { description, _id } = task;
+            const { description, _id, isActive } = task;
             const author = idx % 2 === 0 ? "Me" : "You";
 
             return (
               <Task
                 description={description}
                 key={_id}
+                isActive={isActive}
                 comments={[{ author: author, text: "test" }]}
                 todoId={_id}
               />
