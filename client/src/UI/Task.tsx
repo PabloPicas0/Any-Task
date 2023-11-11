@@ -18,6 +18,7 @@ type TaskProps = {
   description?: string;
   key: string;
   todoId: string;
+  isActive: boolean;
   comments?:
     | {
         author: string;
@@ -27,7 +28,7 @@ type TaskProps = {
 };
 
 const Task = (props: TaskProps) => {
-  const { description, comments, todoId } = props;
+  const { description, comments, todoId, isActive } = props;
 
   const [openComments, setOpenComments] = useState<boolean>(false);
 
@@ -51,6 +52,7 @@ const Task = (props: TaskProps) => {
       {
         intent: "complete",
         taskId: todoId,
+        isActive: isActive,
       },
       {
         method: "DELETE",
