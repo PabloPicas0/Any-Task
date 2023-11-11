@@ -2,7 +2,7 @@ import { url } from "./api";
 
 const deleteTodo = async (taskId: FormDataEntryValue | null) => {
   try {
-    const req = await fetch(`${url}/api/create/delete`, {
+    const req = await fetch(`${url}/api/create/task`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
