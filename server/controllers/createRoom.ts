@@ -72,7 +72,11 @@ export const deleteTask = async (req: Request, res: Response) => {
 
   try {
     const room = await roomModel.findOne({
-      "tasks.active": { $elemMatch: { _id: taskId } },
+      "tasks.active": {
+        $elemMatch: {
+          _id: taskId,
+        },
+      },
     });
 
     if (!room) return res.sendStatus(404);
@@ -90,6 +94,7 @@ export const deleteTask = async (req: Request, res: Response) => {
         deletedTodo.isBin = true;
 
         room.tasks.bin.push(deletedTodo);
+        break;
       }
     }
 
@@ -98,5 +103,56 @@ export const deleteTask = async (req: Request, res: Response) => {
     return res.sendStatus(200);
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const completeTask = async (req: Request, res: Response) => {
+  const { todoId, isActive } = req.body;
+  const isActiveTask: boolean = JSON.parse(isActive);
+
+  try {
+    const room = await roomModel.findOne({
+      $or: [
+        {
+          "tasks.active": {
+            $elemMatch: {
+              _id: todoId,
+            },
+          },
+        },
+        {
+          "tasks.completed": {
+            $elemMatch: {
+              _id: todoId,
+            },
+          },
+        },
+      ],
+    });
+
+    if (!room) return res.sendStatus(404);
+
+    const tasksToSwap = room.tasks[isActiveTask ? "active" : "completed"];
+
+    for (let i = 0; i < tasksToSwap.length; ++i) {
+      const { _id } = tasksToSwap[i];
+
+      if (_id.toString() === todoId) {
+        console.log(`Task Found ${_id.toString()}`);
+        const deletedTask = room.tasks[isActiveTask ? "active" : "completed"].splice(i, 1)[0];
+
+        deletedTask.isActive = !isActiveTask;
+
+        room.tasks[isActiveTask ? "completed" : "active"].push(deletedTask);
+        break;
+      }
+    }
+
+    await room.save();
+
+    return res.sendStatus(200);
+  } catch (error) {
+    console.error(error);
+    return res.sendStatus(500);
   }
 };
