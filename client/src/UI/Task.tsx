@@ -1,13 +1,16 @@
-import { Comment, Delete } from "@mui/icons-material";
+import { Comment, Delete, Send } from "@mui/icons-material";
 import {
   Checkbox,
   Collapse,
   IconButton,
+  InputAdornment,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  OutlinedInput,
+  TextField,
 } from "@mui/material";
 import { blue, grey, red } from "@mui/material/colors";
 
@@ -105,12 +108,35 @@ const Task = (props: TaskProps) => {
       </ListItem>
 
       <Collapse in={openComments} timeout={"auto"} unmountOnExit>
-        <List component={"div"} disablePadding>
+        <List
+          component={"div"}
+          disablePadding
+          sx={{
+            backgroundColor: grey[800],
+            marginX: "20px",
+            borderRadius: "5px",
+            paddingX: "10px",
+            paddingBottom: "10px",
+          }}>
           {comments?.map((comment, idx) => {
             const { author, text } = comment;
 
             return <ListItemText primary={`${author}: ${text}`} key={`${text}${idx}`} />;
           })}
+
+          <OutlinedInput
+            fullWidth
+            size="small"
+            placeholder="Comment"
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton>
+                  <Send />
+                </IconButton>
+              </InputAdornment>
+            }
+            sx={{ marginTop: "20px" }}
+          />
         </List>
       </Collapse>
     </>
