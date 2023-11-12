@@ -16,6 +16,57 @@ import { blue, grey, red } from "@mui/material/colors";
 import { useState } from "react";
 import { useSubmit } from "react-router-dom";
 
+const taskStyles = {
+  checkbox: {
+    color: grey[200],
+    "&.Mui-checked": {
+      color: grey[200],
+    },
+    "&:hover": {
+      backgroundColor: "rgba(245, 245, 245, 0.05)",
+    },
+  },
+  list: {
+    backgroundColor: grey[800],
+    marginX: "20px",
+    borderRadius: "5px",
+    padding: "10px",
+  },
+  textField: {
+    styles: {
+      marginTop: "20px",
+      "& .MuiOutlinedInput-notchedOutline": {
+        borderColor: grey[300],
+      },
+      "& .MuiOutlinedInput-root": {
+        "&.Mui-focused fieldset": {
+          border: "1px solid gray",
+        },
+        "&:hover fieldset": {
+          borderColor: "gray",
+        },
+      },
+    },
+    InputPropsStyles: {
+      endAdornment: (
+        <InputAdornment position="end">
+          <IconButton
+            TouchRippleProps={{
+              style: {
+                color: blue[300],
+              },
+            }}>
+            <SendSharp sx={{ color: "white" }} />
+          </IconButton>
+        </InputAdornment>
+      ),
+      sx: {
+        color: "#fff",
+      },
+    },
+  },
+};
+
 type TaskProps = {
   description?: string;
   key: string;
@@ -88,18 +139,7 @@ const Task = (props: TaskProps) => {
         })}>
         <ListItemButton sx={{ padding: "1.2rem 0rem" }}>
           <ListItemIcon>
-            <Checkbox
-              onClick={handleComplete}
-              sx={{
-                color: grey[200],
-                "&.Mui-checked": {
-                  color: grey[200],
-                },
-                "&:hover": {
-                  backgroundColor: "rgba(245, 245, 245, 0.05)",
-                },
-              }}
-            />
+            <Checkbox onClick={handleComplete} sx={taskStyles.checkbox} />
           </ListItemIcon>
 
           <ListItemText primary={description} sx={{ color: "whitesmoke" }} />
@@ -107,14 +147,7 @@ const Task = (props: TaskProps) => {
       </ListItem>
 
       <Collapse in={openComments} timeout={"auto"} unmountOnExit>
-        <List
-          component={"div"}
-          sx={{
-            backgroundColor: grey[800],
-            marginX: "20px",
-            borderRadius: "5px",
-            padding: "10px",
-          }}>
+        <List component={"div"} sx={taskStyles.list}>
           {comments?.map((comment, idx) => {
             const { author, text } = comment;
 
@@ -126,37 +159,8 @@ const Task = (props: TaskProps) => {
             size="small"
             autoFocus
             placeholder="Comment"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    TouchRippleProps={{
-                      style: {
-                        color: blue[300],
-                      },
-                    }}>
-                    <SendSharp sx={{ color: "white" }} />
-                  </IconButton>
-                </InputAdornment>
-              ),
-              sx: {
-                color: "#fff",
-              },
-            }}
-            sx={{
-              marginTop: "20px",
-              "& .MuiOutlinedInput-notchedOutline": {
-                borderColor: grey[300],
-              },
-              "& .MuiOutlinedInput-root": {
-                "&.Mui-focused fieldset": {
-                  border: "1px solid gray",
-                },
-                "&:hover fieldset": {
-                  borderColor: "gray",
-                },
-              },
-            }}
+            InputProps={taskStyles.textField.InputPropsStyles}
+            sx={taskStyles.textField.styles}
           />
         </List>
       </Collapse>
