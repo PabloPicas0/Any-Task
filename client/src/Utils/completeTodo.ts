@@ -2,7 +2,7 @@ import { url } from "./api";
 
 const completeTodo = async (todoId: FormDataEntryValue | null, isActive: FormDataEntryValue | null) => {
   try {
-    console.log(isActive);
+    // console.log(isActive);
     const req = await fetch(`${url}/api/create/task`, {
       method: "PUT",
       headers: {
@@ -11,7 +11,7 @@ const completeTodo = async (todoId: FormDataEntryValue | null, isActive: FormDat
       body: `todoId=${todoId}&isActive=${isActive}`,
     });
 
-    console.log(req);
+    // console.log(req);
 
     if (!req.ok) throw new Error("Something went wrong");
   } catch (error) {
