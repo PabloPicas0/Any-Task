@@ -1,4 +1,4 @@
-import { Comment, Delete, Send } from "@mui/icons-material";
+import { Comment, Delete, SendSharp } from "@mui/icons-material";
 import {
   Checkbox,
   Collapse,
@@ -9,7 +9,6 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  OutlinedInput,
   TextField,
 } from "@mui/material";
 import { blue, grey, red } from "@mui/material/colors";
@@ -110,13 +109,11 @@ const Task = (props: TaskProps) => {
       <Collapse in={openComments} timeout={"auto"} unmountOnExit>
         <List
           component={"div"}
-          disablePadding
           sx={{
             backgroundColor: grey[800],
             marginX: "20px",
             borderRadius: "5px",
-            paddingX: "10px",
-            paddingBottom: "10px",
+            padding: "10px",
           }}>
           {comments?.map((comment, idx) => {
             const { author, text } = comment;
@@ -124,18 +121,42 @@ const Task = (props: TaskProps) => {
             return <ListItemText primary={`${author}: ${text}`} key={`${text}${idx}`} />;
           })}
 
-          <OutlinedInput
+          <TextField
             fullWidth
             size="small"
+            autoFocus
             placeholder="Comment"
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton>
-                  <Send />
-                </IconButton>
-              </InputAdornment>
-            }
-            sx={{ marginTop: "20px" }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    TouchRippleProps={{
+                      style: {
+                        color: blue[300],
+                      },
+                    }}>
+                    <SendSharp sx={{ color: "white" }} />
+                  </IconButton>
+                </InputAdornment>
+              ),
+              sx: {
+                color: "#fff",
+              },
+            }}
+            sx={{
+              marginTop: "20px",
+              "& .MuiOutlinedInput-notchedOutline": {
+                borderColor: grey[300],
+              },
+              "& .MuiOutlinedInput-root": {
+                "&.Mui-focused fieldset": {
+                  border: "1px solid gray",
+                },
+                "&:hover fieldset": {
+                  borderColor: "gray",
+                },
+              },
+            }}
           />
         </List>
       </Collapse>
