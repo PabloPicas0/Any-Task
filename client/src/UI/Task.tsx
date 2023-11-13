@@ -14,7 +14,7 @@ import {
 import { blue, grey, red } from "@mui/material/colors";
 
 import { useState } from "react";
-import { useSubmit } from "react-router-dom";
+import { useLoaderData, useSubmit } from "react-router-dom";
 
 const taskStyles = {
   checkbox: {
@@ -72,6 +72,7 @@ type TaskProps = {
   key: string;
   todoId: string;
   isActive: boolean;
+  isBin: boolean;
   comments?:
     | {
         author: string;
@@ -81,11 +82,14 @@ type TaskProps = {
 };
 
 const Task = (props: TaskProps) => {
-  const { description, comments, todoId, isActive } = props;
+  const { description, comments, todoId, isActive, isBin } = props;
 
   const [openComments, setOpenComments] = useState<boolean>(false);
+  const [checked, setChecked] = useState<boolean>(!isActive);
 
   const submit = useSubmit();
+
+  // const {roomDetails} = useLoaderData()
 
   const handleDelete = () => {
     submit(
@@ -112,6 +116,7 @@ const Task = (props: TaskProps) => {
         encType: "application/x-www-form-urlencoded",
       }
     );
+    setChecked((prev) => !prev);
   };
 
   return (
@@ -127,8 +132,8 @@ const Task = (props: TaskProps) => {
               <Comment sx={{ color: blue[700] }} />
             </IconButton>
 
-            <IconButton sx={{ marginRight: "20px" }} onClick={handleDelete}>
-              <Delete sx={{ color: red[300] }} />
+            <IconButton sx={{ marginRight: "20px" }} onClick={handleDelete} disabled={isBin}>
+              <Delete sx={{ color: isBin ? grey[500] : red[300] }} />
             </IconButton>
           </>
         }
@@ -139,7 +144,7 @@ const Task = (props: TaskProps) => {
         })}>
         <ListItemButton sx={{ padding: "1.2rem 0rem" }}>
           <ListItemIcon>
-            <Checkbox onClick={handleComplete} sx={taskStyles.checkbox} />
+            <Checkbox onClick={handleComplete} sx={taskStyles.checkbox} disabled={isBin} checked={checked} />
           </ListItemIcon>
 
           <ListItemText primary={description} sx={{ color: "whitesmoke" }} />
@@ -156,6 +161,7 @@ const Task = (props: TaskProps) => {
 
           <TextField
             fullWidth
+            disabled={isBin}
             size="small"
             autoFocus
             placeholder="Comment"
