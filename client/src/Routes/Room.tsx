@@ -153,7 +153,7 @@ const Room = () => {
 
         <List sx={{ ...roomStyles.taskWrapper, display: tasks === "active" ? "block" : "none" }}>
           {active.map((task, idx) => {
-            const { description, _id, isActive } = task;
+            const { description, _id, isActive, isBin } = task;
             const author = idx % 2 === 0 ? "Me" : "You";
 
             return (
@@ -161,6 +161,7 @@ const Room = () => {
                 description={description}
                 key={_id}
                 isActive={isActive}
+                isBin={isBin}
                 comments={[{ author: author, text: "test" }]}
                 todoId={_id}
               />
@@ -170,7 +171,7 @@ const Room = () => {
 
         <List sx={{ ...roomStyles.taskWrapper, display: tasks === "completed" ? "block" : "none" }}>
           {completed.map((task, idx) => {
-            const { description, _id, isActive } = task;
+            const { description, _id, isActive, isBin } = task;
             const author = idx % 2 === 0 ? "Me" : "You";
 
             return (
@@ -178,6 +179,7 @@ const Room = () => {
                 description={description}
                 key={_id}
                 isActive={isActive}
+                isBin={isBin}
                 comments={[{ author: author, text: "test" }]}
                 todoId={_id}
               />
@@ -192,7 +194,7 @@ const Room = () => {
           />
 
           {bin.map((task, idx) => {
-            const { description, _id, isActive } = task;
+            const { description, _id, isActive, isBin } = task;
             const author = idx % 2 === 0 ? "Me" : "You";
 
             return (
@@ -200,6 +202,7 @@ const Room = () => {
                 description={description}
                 key={_id}
                 isActive={isActive}
+                isBin={isBin}
                 comments={[{ author: author, text: "test" }]}
                 todoId={_id}
               />
