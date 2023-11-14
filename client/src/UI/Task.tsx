@@ -13,8 +13,8 @@ import {
 } from "@mui/material";
 import { blue, grey, red } from "@mui/material/colors";
 
-import { useState } from "react";
-import { useLoaderData, useSubmit } from "react-router-dom";
+import { useMemo, useState } from "react";
+import { useLoaderData, useLocation, useSubmit } from "react-router-dom";
 
 const taskStyles = {
   checkbox: {
@@ -27,10 +27,13 @@ const taskStyles = {
     },
   },
   list: {
+    display: "flex",
+    flexDirection: "column",
     backgroundColor: grey[800],
     marginX: "20px",
     borderRadius: "5px",
-    padding: "10px",
+    paddingY: "10px",
+    paddingX: "80px"
   },
   textField: {
     styles: {
@@ -79,6 +82,10 @@ const Task = (props: TaskProps) => {
   const submit = useSubmit();
 
   // const {roomDetails} = useLoaderData()
+  const { search } = useLocation();
+  const currentUser = useMemo(() => {
+    return new URLSearchParams(search).get("username");
+  }, []);
 
   const handleDelete = () => {
     submit(
@@ -159,8 +166,21 @@ const Task = (props: TaskProps) => {
         <List component={"div"} sx={taskStyles.list}>
           {comments?.map((comment, idx) => {
             const { author, text } = comment;
+            const isUserText = author === currentUser;
 
-            return <ListItemText primary={`${author}: ${text}`} key={`${text}${idx}`} />;
+            return (
+              <ListItemText
+                primary={`${author}: ${text}`}
+                key={`${text}${idx}`}
+                sx={{
+                  alignSelf: isUserText ? "end" : "start",
+                  paddingX: "20px",
+                  paddingY: "5px",
+                  backgroundColor: grey[200],
+                  borderRadius: "20px"
+                }}
+              />
+            );
           })}
 
           <TextField
