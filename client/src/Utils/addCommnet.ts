@@ -13,7 +13,9 @@ const addCommnet = async (formData: FormData, username: string | null) => {
       body: `todoId=${taskId}&commnet=${commnet}&username=${username}`,
     });
 
-    console.log(req);
+    // console.log(req);
+
+    if (!req.ok) throw new Error("Something went wrong");
   } catch (error) {
     console.error(error);
   }
