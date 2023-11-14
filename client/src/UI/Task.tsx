@@ -48,18 +48,6 @@ const taskStyles = {
       },
     },
     InputPropsStyles: {
-      endAdornment: (
-        <InputAdornment position="end">
-          <IconButton
-            TouchRippleProps={{
-              style: {
-                color: blue[300],
-              },
-            }}>
-            <SendSharp sx={{ color: "white" }} />
-          </IconButton>
-        </InputAdornment>
-      ),
       sx: {
         color: "#fff",
       },
@@ -86,6 +74,7 @@ const Task = (props: TaskProps) => {
 
   const [openComments, setOpenComments] = useState<boolean>(false);
   const [checked, setChecked] = useState<boolean>(!isActive);
+  const [commnet, setCommnet] = useState<string>("");
 
   const submit = useSubmit();
 
@@ -117,6 +106,21 @@ const Task = (props: TaskProps) => {
       }
     );
     setChecked((prev) => !prev);
+  };
+
+  const handleCommnet = () => {
+    submit(
+      {
+        intent: "comment",
+        taskId: todoId,
+        commnet: commnet,
+      },
+      {
+        method: "POST",
+        encType: "application/x-www-form-urlencoded",
+      }
+    );
+    setCommnet("");
   };
 
   return (
@@ -165,7 +169,25 @@ const Task = (props: TaskProps) => {
             size="small"
             autoFocus
             placeholder="Comment"
-            InputProps={taskStyles.textField.InputPropsStyles}
+            value={commnet}
+            onChange={(e) => setCommnet(e.target.value)}
+            InputProps={{
+              ...taskStyles.textField.InputPropsStyles,
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={handleCommnet}
+                    disabled={commnet === "" ? true : false}
+                    TouchRippleProps={{
+                      style: {
+                        color: blue[300],
+                      },
+                    }}>
+                    <SendSharp sx={{ color: commnet === "" ? grey[400] : "white" }} />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
             sx={taskStyles.textField.styles}
           />
         </List>
