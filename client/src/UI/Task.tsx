@@ -33,7 +33,7 @@ const taskStyles = {
     marginX: "20px",
     borderRadius: "5px",
     paddingY: "10px",
-    paddingX: "80px"
+    paddingX: "80px",
   },
   textField: {
     styles: {
@@ -64,7 +64,7 @@ type TaskProps = {
   todoId: string;
   isActive: boolean;
   isBin: boolean;
-  comments?:
+  comments:
     | {
         author: string;
         text: string;
@@ -164,24 +164,31 @@ const Task = (props: TaskProps) => {
 
       <Collapse in={openComments} timeout={"auto"} unmountOnExit>
         <List component={"div"} sx={taskStyles.list}>
-          {comments?.map((comment, idx) => {
-            const { author, text } = comment;
-            const isUserText = author === currentUser;
+          {comments.length > 0 ? (
+            comments.map((comment, idx) => {
+              const { author, text } = comment;
+              const isUserText = author === currentUser;
 
-            return (
-              <ListItemText
-                primary={`${author}: ${text}`}
-                key={`${text}${idx}`}
-                sx={{
-                  alignSelf: isUserText ? "end" : "start",
-                  paddingX: "20px",
-                  paddingY: "5px",
-                  backgroundColor: grey[200],
-                  borderRadius: "20px"
-                }}
-              />
-            );
-          })}
+              return (
+                <ListItemText
+                  primary={`${author}: ${text}`}
+                  key={`${text}${idx}`}
+                  sx={{
+                    alignSelf: isUserText ? "end" : "start",
+                    paddingX: "20px",
+                    paddingY: "5px",
+                    backgroundColor: grey[200],
+                    borderRadius: "20px",
+                  }}
+                />
+              );
+            })
+          ) : (
+            <ListItemText
+              primary={"Looks like no one was here. Be first and add comment !"}
+              sx={{ color: "white" }}
+            />
+          )}
 
           <TextField
             fullWidth
