@@ -11,6 +11,11 @@ type TODO = {
   comments: [];
 };
 
+type TodoCommnet = {
+  author: string;
+  text: string;
+};
+
 export const createRoom = async (req: Request, res: Response) => {
   const { username, allowNewTasks, editTasks, editPermissions } = req.body;
 
@@ -154,5 +159,41 @@ export const completeTask = async (req: Request, res: Response) => {
   } catch (error) {
     console.error(error);
     return res.sendStatus(500);
+  }
+};
+
+export const createComment = async (req: Request, res: Response) => {
+  const { todoId, commnet, username } = req.body;
+  const todoCommnet: TodoCommnet = {
+    author: username,
+    text: commnet,
+  };
+
+  try {
+    const room = await roomModel.findOne({
+      "tasks.active": {
+        $elemMatch: {
+          _id: todoId,
+        },
+      },
+    });
+
+    if (!room) return res.sendStatus(404);
+
+    for (const task of room.tasks.active) {
+      const { _id } = task;
+
+      if (_id.toString() === todoId) {
+        console.log("task found " + _id.toString());
+        task.comments.push(todoCommnet);
+        break;
+      }
+    }
+
+    await room.save();
+
+    return res.sendStatus(200);
+  } catch (error) {
+    console.error(error);
   }
 };
