@@ -152,9 +152,8 @@ const Room = () => {
         </Box>
 
         <List sx={{ ...roomStyles.taskWrapper, display: tasks === "active" ? "block" : "none" }}>
-          {active.map((task, idx) => {
-            const { description, _id, isActive, isBin } = task;
-            const author = idx % 2 === 0 ? "Me" : "You";
+          {active.map((task) => {
+            const { description, _id, isActive, isBin, comments } = task;
 
             return (
               <Task
@@ -162,7 +161,7 @@ const Room = () => {
                 key={_id}
                 isActive={isActive}
                 isBin={isBin}
-                comments={[{ author: author, text: "test" }]}
+                comments={comments}
                 todoId={_id}
               />
             );
@@ -170,9 +169,9 @@ const Room = () => {
         </List>
 
         <List sx={{ ...roomStyles.taskWrapper, display: tasks === "completed" ? "block" : "none" }}>
-          {completed.map((task, idx) => {
-            const { description, _id, isActive, isBin } = task;
-            const author = idx % 2 === 0 ? "Me" : "You";
+          {completed.map((task) => {
+            const { description, _id, isActive, isBin, comments } = task;
+            
 
             return (
               <Task
@@ -180,7 +179,7 @@ const Room = () => {
                 key={_id}
                 isActive={isActive}
                 isBin={isBin}
-                comments={[{ author: author, text: "test" }]}
+                comments={comments}
                 todoId={_id}
               />
             );
@@ -193,9 +192,9 @@ const Room = () => {
             sx={roomStyles.colors.grey50}
           />
 
-          {bin.map((task, idx) => {
-            const { description, _id, isActive, isBin } = task;
-            const author = idx % 2 === 0 ? "Me" : "You";
+          {bin.map((task) => {
+            const { description, _id, isActive, isBin, comments } = task;
+            
 
             return (
               <Task
@@ -203,7 +202,7 @@ const Room = () => {
                 key={_id}
                 isActive={isActive}
                 isBin={isBin}
-                comments={[{ author: author, text: "test" }]}
+                comments={comments}
                 todoId={_id}
               />
             );
