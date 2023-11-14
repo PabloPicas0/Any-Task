@@ -185,7 +185,7 @@ const Task = (props: TaskProps) => {
 
           <TextField
             fullWidth
-            disabled={isBin}
+            disabled={isBin || !isActive}
             size="small"
             autoFocus
             placeholder="Comment"
