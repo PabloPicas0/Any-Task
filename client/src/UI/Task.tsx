@@ -14,7 +14,7 @@ import {
 import { blue, grey, red } from "@mui/material/colors";
 
 import { useMemo, useState } from "react";
-import { useLoaderData, useLocation, useSubmit } from "react-router-dom";
+import { useLocation, useSubmit } from "react-router-dom";
 
 const taskStyles = {
   checkbox: {
