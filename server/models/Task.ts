@@ -45,6 +45,7 @@ interface IRoom {
           }[];
         }[];
   };
+  lastCleared: number;
 }
 
 const roomSchema = new mongoose.Schema<IRoom>({
@@ -121,7 +122,26 @@ const roomSchema = new mongoose.Schema<IRoom>({
       bin: [],
     },
   },
+  lastCleared: {
+    type: Number,
+    default: new Date().getTime(),
+  },
 });
+
+roomSchema.post("findOne", (doc: IRoom) => {
+  const lastClear = new Date(doc.lastCleared).getMonth();
+  const nextClear = new Date();
+  const currentMonth = new Date();
+
+  currentMonth.setMonth(11)
+  nextClear.setMonth(lastClear + 1);
+
+  if (currentMonth.getMonth() === nextClear.getMonth()) {
+    doc.tasks.bin = [];
+    doc.lastCleared = new Date().getTime();
+  }
+  console.log(lastClear, nextClear.getMonth(), currentMonth.getMonth());
+}); 
 
 const roomModel = mongoose.model("roomModel", roomSchema);
 
