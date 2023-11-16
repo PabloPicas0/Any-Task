@@ -133,12 +133,11 @@ roomSchema.post("findOne", (doc: IRoom) => {
   const nextClear = new Date();
   const currentMonth = new Date();
 
-  currentMonth.setMonth(11)
   nextClear.setMonth(lastClear + 1);
 
   if (currentMonth.getMonth() === nextClear.getMonth()) {
     doc.tasks.bin = [];
-    doc.lastCleared = new Date().getTime();
+    doc.lastCleared = currentMonth.getTime();
   }
   console.log(lastClear, nextClear.getMonth(), currentMonth.getMonth());
 }); 
