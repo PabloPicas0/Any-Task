@@ -52,7 +52,10 @@ const roomStyles = {
       xs: "space-evenly",
       md: "start",
     },
-    gap: "10px",
+    gap: {
+      xs: 0,
+      md: "10px",
+    },
     paddingTop: 3,
   },
   taskWrapper: {
@@ -64,7 +67,6 @@ const roomStyles = {
   },
   buttons: {
     color: "#fafafa",
-    paddingX: "16px",
     justifyContent: "start",
     "&:hover": {
       backgroundColor: "rgba(255,255,255,0.1)",
@@ -80,12 +82,6 @@ const roomStyles = {
 type LoaderData = {
   roomDetails: ServerResponse;
 };
-
-/*
- * TODO:
- *  - Make app more responsive on moblie
- *
- */
 
 const Room = () => {
   const [tasks, setTasks] = useState<string>("active");
