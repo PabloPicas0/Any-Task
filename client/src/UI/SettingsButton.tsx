@@ -28,7 +28,8 @@ const settingsButtonStyles = {
   },
   options: {
     display: "flex",
-    justifyContent: "space-between",
+    gap: "30px",
+    alignItems: "center",
   },
   justifyContent: {
     justifyContent: "center",
@@ -52,27 +53,17 @@ const SettingsButton = () => {
         <DialogContent>
           <Box sx={settingsButtonStyles.options}>
             <Switch />
-            <Typography>test 1</Typography>
+            <Typography>Allow add new tasks</Typography>
           </Box>
 
           <Box sx={settingsButtonStyles.options}>
             <Switch />
-            <Typography>test 2</Typography>
+            <Typography>Allow edit tasks</Typography>
           </Box>
 
           <Box sx={settingsButtonStyles.options}>
             <Switch />
-            <Typography>test 3</Typography>
-          </Box>
-
-          <Box sx={settingsButtonStyles.options}>
-            <Switch />
-            <Typography>test 4</Typography>
-          </Box>
-
-          <Box sx={settingsButtonStyles.options}>
-            <Switch />
-            <Typography>test 5</Typography>
+            <Typography>Allow edit permissions</Typography>
           </Box>
         </DialogContent>
 
