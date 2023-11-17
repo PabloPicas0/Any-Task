@@ -15,10 +15,6 @@ import { Form } from "react-router-dom";
 
 import Error from "./Error";
 
-/*
- * TODO
- *  - Update error handing
- */
 
 const AddButton = () => {
   const [open, setOpen] = useState<boolean>(false);
