@@ -13,6 +13,8 @@ import {
 } from "@mui/material";
 
 import { useState } from "react";
+import { useLoaderData } from "react-router-dom";
+import { LoaderData } from "../Routes/Room";
 
 const settingsButtonStyles = {
   settingsBtn: {
@@ -37,6 +39,10 @@ const settingsButtonStyles = {
 };
 
 const SettingsButton = () => {
+  const { roomDetails } = useLoaderData() as LoaderData;
+
+  const { editPermissions, editTask, newTasks } = roomDetails.roomOptions;
+
   const [open, setOpen] = useState<boolean>(false);
 
   return (
@@ -52,17 +58,17 @@ const SettingsButton = () => {
 
         <DialogContent>
           <Box sx={settingsButtonStyles.options}>
-            <Switch />
+            <Switch checked={newTasks} />
             <Typography>Allow add new tasks</Typography>
           </Box>
 
           <Box sx={settingsButtonStyles.options}>
-            <Switch />
+            <Switch checked={editTask} />
             <Typography>Allow edit tasks</Typography>
           </Box>
 
           <Box sx={settingsButtonStyles.options}>
-            <Switch />
+            <Switch checked={editPermissions} />
             <Typography>Allow edit permissions</Typography>
           </Box>
         </DialogContent>
