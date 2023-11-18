@@ -20,7 +20,7 @@ mongoose
   .catch((error: any) => console.log(error));
 
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req: Request, res: Response) => {
   res.send("<h1 style='text-align: center'>Server is running !</h1>");
