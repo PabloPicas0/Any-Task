@@ -15,6 +15,7 @@ import updateTodo from "./Utils/updateTodo.ts";
 import deleteTodo from "./Utils/deleteTodo.ts";
 import completeTodo from "./Utils/completeTodo.ts";
 import addCommnet from "./Utils/addCommnet.ts";
+import editPermissions from "./Utils/editPermissions.ts";
 
 const router = createBrowserRouter([
   {
@@ -82,6 +83,12 @@ const router = createBrowserRouter([
         const username = url.searchParams.get("username");
 
         await addCommnet(formData, username);
+
+        return { ok: true };
+      }
+
+      if (intent === "permission") {
+        await editPermissions(formData);
 
         return { ok: true };
       }
