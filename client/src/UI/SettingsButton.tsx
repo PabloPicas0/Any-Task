@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 
 import { useState, useMemo } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useSubmit } from "react-router-dom";
 import { LoaderData } from "../Routes/Room";
 
 const settingsButtonStyles = {
@@ -50,8 +50,25 @@ const SettingsButton = () => {
     newTasks: newTasks,
   });
 
-  const defaultPermissions = useMemo(() => ({ ...permissions }), [editPermissions, editTask, newTasks]);
-  
+  const oldPermissions = useMemo(() => ({ ...permissions }), [editPermissions, editTask, newTasks]);
+
+  const isPermissionsSame = JSON.stringify(oldPermissions) === JSON.stringify(permissions);
+
+  const submit = useSubmit();
+
+  const handlePermissions = () => {
+    submit(
+      {
+        intent: "permission",
+        ...permissions,
+      },
+      {
+        method: "PUT",
+        encType: "application/x-www-form-urlencoded",
+      }
+    );
+  };
+
   return (
     <>
       <Tooltip title="Room permissions" placement="left">
@@ -63,7 +80,7 @@ const SettingsButton = () => {
       <Dialog
         onClose={() => {
           setOpen(false);
-          setPermissions(defaultPermissions);
+          setPermissions(oldPermissions);
         }}
         open={open}
         PaperProps={settingsButtonStyles.dialogPaperProps}>
@@ -108,7 +125,9 @@ const SettingsButton = () => {
         </DialogContent>
 
         <DialogActions sx={settingsButtonStyles.justifyContent}>
-          <Button variant="contained">Edit permissions</Button>
+          <Button variant="contained" onClick={handlePermissions} disabled={isPermissionsSame}>
+            Edit permissions
+          </Button>
         </DialogActions>
       </Dialog>
     </>
