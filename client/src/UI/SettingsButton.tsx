@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 
 import { useState, useMemo } from "react";
-import { useLoaderData, useSubmit } from "react-router-dom";
+import { useLoaderData, useParams, useSubmit } from "react-router-dom";
 import { LoaderData } from "../Routes/Room";
 
 const settingsButtonStyles = {
@@ -52,14 +52,16 @@ const SettingsButton = () => {
 
   const oldPermissions = useMemo(() => ({ ...permissions }), [editPermissions, editTask, newTasks]);
 
-  const isPermissionsSame = JSON.stringify(oldPermissions) === JSON.stringify(permissions);
-
   const submit = useSubmit();
+  const { id } = useParams();
+
+  const isPermissionsSame = JSON.stringify(oldPermissions) === JSON.stringify(permissions);
 
   const handlePermissions = () => {
     submit(
       {
         intent: "permission",
+        roomId: id || "",
         ...permissions,
       },
       {
