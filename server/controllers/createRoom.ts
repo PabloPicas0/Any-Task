@@ -197,3 +197,39 @@ export const createComment = async (req: Request, res: Response) => {
     console.error(error);
   }
 };
+
+export const editPermission = async (req: Request, res: Response) => {
+  const keys = Object.keys(req.body);
+
+  // Converts boolean string from req.body into proper Boolean type
+  for (const key of keys) {
+    const isStringBool: string = req.body[key];
+
+    if (isStringBool === "true" || isStringBool === "false") {
+      // console.log(isStringBool);
+      req.body[key] = JSON.parse(req.body[key]);
+    }
+  }
+
+  const { editPermissions, editTask, newTasks, roomId } = req.body;
+
+  // console.log(req.body);
+
+  try {
+    const room = await roomModel.findById(roomId);
+
+    if (!room) return res.sendStatus(404);
+
+    room.roomOptions.newTasks = newTasks;
+    room.roomOptions.editPermissions = editPermissions;
+    room.roomOptions.editTask = editTask;
+
+    // console.log(room);
+    await room.save();
+
+    return res.sendStatus(200);
+  } catch (error) {
+    console.error(error);
+    return res.sendStatus(500);
+  }
+};
