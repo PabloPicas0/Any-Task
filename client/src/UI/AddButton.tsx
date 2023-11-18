@@ -15,8 +15,13 @@ import { Form } from "react-router-dom";
 
 import Error from "./Error";
 
+type Props = {
+  height: number;
+};
 
-const AddButton = () => {
+const AddButton = (props: Props) => {
+  const { height } = props;
+
   const [open, setOpen] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const [taskDescription, setTaskDescription] = useState<string>("");
@@ -26,7 +31,7 @@ const AddButton = () => {
       <Tooltip title="Add task" placement="left">
         <Fab
           aria-label="Add todo"
-          sx={{ position: "fixed", right: 30, bottom: 96 }}
+          sx={{ position: "fixed", right: 30, bottom: height }}
           onClick={() => setOpen(true)}>
           <Add />
         </Fab>
