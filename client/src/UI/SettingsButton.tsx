@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useLoaderData } from "react-router-dom";
 import { LoaderData } from "../Routes/Room";
 
@@ -44,7 +44,14 @@ const SettingsButton = () => {
   const { editPermissions, editTask, newTasks } = roomDetails.roomOptions;
 
   const [open, setOpen] = useState<boolean>(false);
+  const [permissions, setPermissions] = useState({
+    editPermissions: editPermissions,
+    editTask: editTask,
+    newTasks: newTasks,
+  });
 
+  const defaultPermissions = useMemo(() => ({ ...permissions }), [editPermissions, editTask, newTasks]);
+  
   return (
     <>
       <Tooltip title="Room permissions" placement="left">
@@ -53,22 +60,49 @@ const SettingsButton = () => {
         </Fab>
       </Tooltip>
 
-      <Dialog onClose={() => setOpen(false)} open={open} PaperProps={settingsButtonStyles.dialogPaperProps}>
+      <Dialog
+        onClose={() => {
+          setOpen(false);
+          setPermissions(defaultPermissions);
+        }}
+        open={open}
+        PaperProps={settingsButtonStyles.dialogPaperProps}>
         <DialogTitle textAlign={"center"}>Permissions</DialogTitle>
 
         <DialogContent>
           <Box sx={settingsButtonStyles.options}>
-            <Switch checked={newTasks} />
+            <Switch
+              checked={permissions.newTasks}
+              onChange={() =>
+                setPermissions((prevPermissions) => {
+                  return { ...prevPermissions, newTasks: !prevPermissions.newTasks };
+                })
+              }
+            />
             <Typography>Allow add new tasks</Typography>
           </Box>
 
           <Box sx={settingsButtonStyles.options}>
-            <Switch checked={editTask} />
+            <Switch
+              checked={permissions.editTask}
+              onChange={() =>
+                setPermissions((prevPermissions) => {
+                  return { ...prevPermissions, editTask: !prevPermissions.editTask };
+                })
+              }
+            />
             <Typography>Allow edit tasks</Typography>
           </Box>
 
           <Box sx={settingsButtonStyles.options}>
-            <Switch checked={editPermissions} />
+            <Switch
+              checked={permissions.editPermissions}
+              onChange={() =>
+                setPermissions((prevPermissions) => {
+                  return { ...prevPermissions, editPermissions: !prevPermissions.editPermissions };
+                })
+              }
+            />
             <Typography>Allow edit permissions</Typography>
           </Box>
         </DialogContent>
