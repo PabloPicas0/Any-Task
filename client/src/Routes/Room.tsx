@@ -79,7 +79,7 @@ const roomStyles = {
   },
 };
 
-type LoaderData = {
+export type LoaderData = {
   roomDetails: ServerResponse;
 };
 
@@ -92,7 +92,9 @@ const Room = () => {
   const completed = roomDetails.tasks.completed;
   const bin = roomDetails.tasks.bin;
 
-  // console.log(roomDetails);
+  const { isAdmin } = roomDetails.roomUsers[0];
+
+  // console.log(isAdmin);
 
   return (
     <>
@@ -167,7 +169,6 @@ const Room = () => {
         <List sx={{ ...roomStyles.taskWrapper, display: tasks === "completed" ? "block" : "none" }}>
           {completed.map((task) => {
             const { description, _id, isActive, isBin, comments } = task;
-            
 
             return (
               <Task
@@ -190,7 +191,6 @@ const Room = () => {
 
           {bin.map((task) => {
             const { description, _id, isActive, isBin, comments } = task;
-            
 
             return (
               <Task
@@ -206,8 +206,8 @@ const Room = () => {
         </List>
       </Box>
 
-      <AddButton />
-      <SettingsButton />
+      <AddButton height={isAdmin ? 96 : 20} />
+      {isAdmin ? <SettingsButton /> : null}
     </>
   );
 };
