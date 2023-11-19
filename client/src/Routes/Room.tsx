@@ -93,7 +93,7 @@ const Room = () => {
   const bin = roomDetails.tasks.bin;
 
   const { isAdmin } = roomDetails.roomUsers[0];
-  const { editPermissions } = roomDetails.roomOptions;
+  const { editPermissions, newTasks } = roomDetails.roomOptions;
   // console.log(isAdmin);
 
   return (
@@ -206,7 +206,7 @@ const Room = () => {
         </List>
       </Box>
 
-      <AddButton height={isAdmin || editPermissions ? 96 : 20} />
+      {isAdmin || newTasks ? <AddButton height={isAdmin || editPermissions ? 96 : 20} /> : null}
       {isAdmin || editPermissions ? <SettingsButton /> : null}
     </>
   );
