@@ -94,8 +94,6 @@ const Task = (props: TaskProps) => {
   const { isAdmin } = roomDetails.roomUsers[0];
   const { editTask } = roomDetails.roomOptions;
 
-  console.log(isAdmin, editTask);
-
   const handleDelete = () => {
     submit(
       {
@@ -155,7 +153,7 @@ const Task = (props: TaskProps) => {
             <IconButton
               sx={{ marginRight: "20px" }}
               onClick={handleDelete}
-              disabled={isBin || !editTask || (!editTask && !isAdmin)}>
+              disabled={isAdmin ? false : isBin || !editTask}>
               <Delete sx={{ color: isBin ? grey[500] : red[300] }} />
             </IconButton>
           </>
@@ -167,7 +165,12 @@ const Task = (props: TaskProps) => {
         })}>
         <ListItemButton sx={{ padding: "1.2rem 0rem" }}>
           <ListItemIcon>
-            <Checkbox onClick={handleComplete} sx={taskStyles.checkbox} disabled={isBin} checked={checked} />
+            <Checkbox
+              onClick={handleComplete}
+              sx={taskStyles.checkbox}
+              disabled={isAdmin ? false : isBin || !editTask}
+              checked={checked}
+            />
           </ListItemIcon>
 
           <ListItemText primary={description} sx={{ color: "whitesmoke" }} />
