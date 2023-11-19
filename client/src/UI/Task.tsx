@@ -14,7 +14,9 @@ import {
 import { blue, grey, red } from "@mui/material/colors";
 
 import { useMemo, useState } from "react";
-import { useLocation, useSubmit } from "react-router-dom";
+import { useLoaderData, useLocation, useSubmit } from "react-router-dom";
+
+import { LoaderData } from "../Routes/Room";
 
 const taskStyles = {
   checkbox: {
@@ -87,6 +89,13 @@ const Task = (props: TaskProps) => {
     return new URLSearchParams(search).get("username");
   }, []);
 
+  const { roomDetails } = useLoaderData() as LoaderData;
+
+  const { isAdmin } = roomDetails.roomUsers[0];
+  const { editTask } = roomDetails.roomOptions;
+
+  console.log(isAdmin, editTask);
+
   const handleDelete = () => {
     submit(
       {
@@ -143,7 +152,10 @@ const Task = (props: TaskProps) => {
               <Comment sx={{ color: blue[700] }} />
             </IconButton>
 
-            <IconButton sx={{ marginRight: "20px" }} onClick={handleDelete} disabled={isBin}>
+            <IconButton
+              sx={{ marginRight: "20px" }}
+              onClick={handleDelete}
+              disabled={isBin || !editTask || (!editTask && !isAdmin)}>
               <Delete sx={{ color: isBin ? grey[500] : red[300] }} />
             </IconButton>
           </>
