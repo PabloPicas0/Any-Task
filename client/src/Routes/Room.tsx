@@ -106,7 +106,7 @@ const Room = () => {
 
           <Tooltip title="Leave room">
             <IconButton
-              href="/"
+              href="/Any-Task"
               size="large"
               sx={{
                 ...roomStyles.colors.grey50,
