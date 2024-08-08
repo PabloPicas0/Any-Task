@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "start": "node dist/index.js",
-    "dev": "nodemon index.ts"
+    "start": "ts-node index.ts",
+    "dev": "nodemon index.ts",
+    "type": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
