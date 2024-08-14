@@ -7,7 +7,7 @@ Any-Task is fullstack app that let's user track his current task. In addition yo
 * create or join task room
 * add, edit and delete task
 * add room permissions 
-* mark the anime as `completed` or delete them
+* mark the task as `completed` or delete them
 
 ## Stack
 * Mongo DB
